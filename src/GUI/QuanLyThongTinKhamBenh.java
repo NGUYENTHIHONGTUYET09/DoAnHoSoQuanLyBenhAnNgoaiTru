@@ -50,7 +50,7 @@ public class QuanLyThongTinKhamBenh extends javax.swing.JFrame {
                 phieuKhamBenh.getMAPKB(),
                 nhanVien.getMANV(),
                 benhNhan.getMaBN(),
-                phongKham.getMaPK() ,
+                phongKham.getMaPK(),
                 phieuKhamBenh.getNGAYTAO(),
                 phieuKhamBenh.getCHANDOAN()});
         }

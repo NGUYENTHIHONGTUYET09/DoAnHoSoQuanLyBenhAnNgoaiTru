@@ -10,6 +10,7 @@ import BUS.NhanVienService;
 import BUS.PhieuKhamBenhService;
 import BUS.PhongKhamService;
 import DTO.BenhNhan;
+import DTO.CTDonThuoc;
 import DTO.ChiTietToaThuoc;
 import DTO.NhanVien;
 import DTO.PhieuKhamBenh;
@@ -25,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class ChiTietPkbGUI extends javax.swing.JFrame {
     private PhieuKhamBenhService phieuKhamBenhService;
     private PhieuKhamBenh phieuKhamBenh;
+    private CTDonThuoc ctdonthuoc;
     
     private NhanVienService nhanVienService;
     private NhanVien nhanVien;
@@ -67,6 +69,8 @@ public class ChiTietPkbGUI extends javax.swing.JFrame {
         phongKhamService = new PhongKhamService();
         int phongKhamID = phieuKhamBenh.getMAPK();
         phongKham = phongKhamService.getPhongKhamByID(phongKhamID);
+        
+     
         
         jTextField1.setText(String.valueOf(nhanVien.getHOTEN()));
         jTextField2.setText(String.valueOf(benhNhan.getTenBN()));

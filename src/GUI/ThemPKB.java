@@ -123,7 +123,7 @@ public class ThemPKB extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        maPKLb.setText("Mã PK");
+        maPKLb.setText("Tên PK");
 
         jLabel1.setForeground(new java.awt.Color(0, 51, 204));
         jLabel1.setText("THÊM MỚI PHIẾU KHÁM BỆNH");

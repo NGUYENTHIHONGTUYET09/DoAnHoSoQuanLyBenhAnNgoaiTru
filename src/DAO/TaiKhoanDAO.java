@@ -144,7 +144,7 @@ public class TaiKhoanDAO {
                 ps.setString(4, dk.getMatKhau());
                 ps.setString(5, dk.getMatkhauxacnhan());
                 ps.setString(6, dk.getVaiTro());
-                ps.setInt(7, dk.getMaSoNV());
+                ps.setInt(8, dk.getMaSoNV());
                 ps.setString(7, dk.getTrangThai());
             
 

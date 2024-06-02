@@ -33,6 +33,8 @@ public class PhieuKhamBenhService {
         phieuKhamBenhDao.xoaPKB(id);
     }
     
+    
+ 
     public PhieuKhamBenh getPhieuKhamBenhByID(int id){
         return phieuKhamBenhDao.getPKBbyID(id);
     }

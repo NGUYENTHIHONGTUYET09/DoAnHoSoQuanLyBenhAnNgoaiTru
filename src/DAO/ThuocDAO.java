@@ -8,6 +8,7 @@ import DTO.Thuoc;
 import DTO.CTDonThuoc;
 import DTO.ToaThuoc;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.util.ArrayList;
 import connectSql.connect;
@@ -177,6 +178,26 @@ public class ThuocDAO {
         }
     }
     
-    // ----------- PKB GUI
+    public void suaThuoc1(Thuoc thuoc) {
+        try {
+        	   Connection con = connect.getConnection();
+            String sql = "{CALL sp_CapNhatSLT(?, ?)}"; // Gọi đúng tên stored procedure
+            CallableStatement cs = con.prepareCall(sql);
 
+            // Đặt các giá trị tham số
+            cs.setInt(1, thuoc.getId()); // Đặt id của thuốc
+            cs.setInt(2, thuoc.getSoLuongTon()); // Đặt số lượng tồn mới
+
+            // Thực thi stored procedure
+            cs.executeUpdate();
+            System.out.println("Số lượng tồn đã được cập nhật thành công.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý hoặc ghi log cho ngoại lệ khi cần thiết
+        }
+    }
+
+    // Phần còn lại của lớp bạn
 }
+
+

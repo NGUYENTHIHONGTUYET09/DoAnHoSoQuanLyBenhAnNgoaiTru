@@ -248,6 +248,7 @@ public class ThuocGUI extends javax.swing.JFrame {
             int id = Integer.parseInt(String.valueOf(ThuocTable.getValueAt(row, 0)));
 
             new SuaThuoc(id).setVisible(true);
+            
             this.dispose();           
         }  
         

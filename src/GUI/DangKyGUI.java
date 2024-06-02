@@ -273,7 +273,11 @@ public class DangKyGUI extends JFrame {
                 addTaiKhoanNhanVien("Quản Lý Kho");
             }
 
-            switchToDSDKGUI();
+          //  switchToDSDKGUI();
+        TrangChuDangNhapGUI tcdng = new TrangChuDangNhapGUI();
+        tcdng.setVisible(true);
+            dispose();
+            
             try{
                 sendMail(email, "Bạn đã đăng ký tài khoản vào hệ thống với mật khẩu là: " + matkhau);
             }catch(AddressException ae){
@@ -481,17 +485,17 @@ public class DangKyGUI extends JFrame {
                 break;
         }
     }
-
-    public void switchToDSDKGUI() {
-        if (qlttdk instanceof DanhSachTaiKhoan) {
-            qlttdk.setVisible(true);
-            setVisible(false);
-        } else {
-            DangNhapGUI dn = new DangNhapGUI(null);
-            dn.setVisible(true);
-            setVisible(false);
-        }
-
-    }
+//
+//    public void switchToDSDKGUI() {
+//        if (qlttdk instanceof DanhSachTaiKhoan) {
+//            qlttdk.setVisible(true);
+//            setVisible(false);
+//        } else {
+//            DangNhapGUI dn = new DangNhapGUI(null);
+//            dn.setVisible(true);
+//            setVisible(false);
+//        }
+//
+//    }
 
 }

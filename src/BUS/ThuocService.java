@@ -43,4 +43,9 @@ public class ThuocService {
     {
         thuocDAO.suaThuoc(thuoc);
     }
+    
+    public void suaThuoc1(Thuoc thuoc)
+    {
+        thuocDAO.suaThuoc1(thuoc);
+    }
 }

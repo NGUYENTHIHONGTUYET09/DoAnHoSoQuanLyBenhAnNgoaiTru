@@ -37,7 +37,7 @@ public class PhieuKhamBenhDAO {
                 phieuKhamBenh.setMAPKB(rs.getString("maPKB"));
                 phieuKhamBenh.setMABS(rs.getInt("maBS"));
                 phieuKhamBenh.setMABN(rs.getInt("maBN"));
-                phieuKhamBenh.setMAPK(rs.getInt("maBN"));
+                phieuKhamBenh.setMAPK(rs.getInt("maPK"));
                 phieuKhamBenh.setNGAYTAO(rs.getDate("ngayTao"));
                 phieuKhamBenh.setCHANDOAN(rs.getString("chanDoan"));               
 

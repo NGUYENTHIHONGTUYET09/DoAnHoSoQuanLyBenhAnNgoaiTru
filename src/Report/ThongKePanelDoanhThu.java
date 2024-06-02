@@ -1,79 +1,84 @@
-
 package Report;
 
 import BUS.DSBienLaiBUS;
 import GUI.QLyBienLaiGUI;
+import GUI.TrangChuAdmin;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ThongKePanelDoanhThu extends javax.swing.JPanel {
+public class ThongKePanelDoanhThu extends JPanel {
     
     private QuanLyThongKeController controller;
     private DSBienLaiBUS dsbl;
 
+    private JButton closeButton;  // Thêm nút đóng
 
     public ThongKePanelDoanhThu(DSBienLaiBUS dsbl) {
-            this.dsbl = dsbl;
+        this.dsbl = dsbl;
         initComponents();
-         QLyBienLaiGUI qlttbl = new QLyBienLaiGUI();
+        QLyBienLaiGUI qlttbl = new QLyBienLaiGUI();
         DSBienLaiBUS danhSachBLBUS = new DSBienLaiBUS(qlttbl);
         ThongKeServiceImplDoanhThu thongKeService = new ThongKeServiceImplDoanhThu(danhSachBLBUS.getDoanhThuGroupByYear());
         controller = new QuanLyThongKeController(thongKeService);
         controller.setDataDoanhThuToColChart(jpnView1);
     }
 
-    
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
+        jpnRoot = new JPanel(new BorderLayout());
+        jpnView1 = new JPanel();
+        closeButton = new JButton("X");  // Khởi tạo nút đóng
 
-        jpnRoot = new javax.swing.JPanel();
-        jpnView1 = new javax.swing.JPanel();
+        closeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Xử lý sự kiện đóng
+                System.out.println("Close button clicked");
+                // Đóng panel hoặc thực hiện hành động khác
+                // Ví dụ: ((JFrame) SwingUtilities.getWindowAncestor(ThongKePanelDoanhThu.this)).dispose();
+                ThongKePanelDoanhThu.this.setVisible(false);
+                TrangChuAdmin tca = new TrangChuAdmin();
+                tca.setVisible(true);
+            }
+        });
 
-        javax.swing.GroupLayout jpnView1Layout = new javax.swing.GroupLayout(jpnView1);
+        // Tạo một panel cho nút đóng
+        JPanel closePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        closePanel.add(closeButton);
+
+        jpnRoot.add(closePanel, BorderLayout.NORTH);
+        jpnRoot.add(jpnView1, BorderLayout.CENTER);
+
+        GroupLayout jpnView1Layout = new GroupLayout(jpnView1);
         jpnView1.setLayout(jpnView1Layout);
         jpnView1Layout.setHorizontalGroup(
-            jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jpnView1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 617, Short.MAX_VALUE)
         );
         jpnView1Layout.setVerticalGroup(
-            jpnView1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jpnView1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 459, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jpnRootLayout = new javax.swing.GroupLayout(jpnRoot);
-        jpnRoot.setLayout(jpnRootLayout);
-        jpnRootLayout.setHorizontalGroup(
-            jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnRootLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jpnView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jpnRootLayout.setVerticalGroup(
-            jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnRootLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jpnView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnRoot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jpnRoot, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnRoot, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 26, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
-
+    }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JPanel jpnRoot;
-    private javax.swing.JPanel jpnView1;
+    private JPanel jpnRoot;
+    private JPanel jpnView1;
     // End of variables declaration                   
 }
