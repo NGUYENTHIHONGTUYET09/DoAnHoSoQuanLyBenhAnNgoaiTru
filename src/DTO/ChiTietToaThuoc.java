@@ -14,14 +14,16 @@ public class ChiTietToaThuoc {
     private String tenThuoc;
     private int soLuong;
     private double donGia;
+    private String ghiChu;
 
     // Constructor
-    public ChiTietToaThuoc(String maToa, int maThuoc, String tenThuoc, int soLuong, double donGia) {
+    public ChiTietToaThuoc(String maToa, int maThuoc, String tenThuoc, int soLuong, double donGia, String ghiChu) {
         this.maToa = maToa;
         this.maThuoc = maThuoc;
         this.tenThuoc = tenThuoc;
         this.soLuong = soLuong;
         this.donGia = donGia;
+        this.ghiChu = ghiChu;
     }
     
     public ChiTietToaThuoc(){};
@@ -65,5 +67,13 @@ public class ChiTietToaThuoc {
 
     public void setDonGia(double donGia) {
         this.donGia = donGia;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 }

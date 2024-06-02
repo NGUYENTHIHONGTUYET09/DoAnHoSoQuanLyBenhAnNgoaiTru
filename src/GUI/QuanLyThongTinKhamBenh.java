@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package GUI;
 
-/**
- *
- * @author phamngochoang
- */
+package GUI;
 
 import DTO.PhieuKhamBenh;
 import BUS.PhieuKhamBenhService;
@@ -76,7 +68,7 @@ public class QuanLyThongTinKhamBenh extends javax.swing.JFrame {
         defaultTableModel.setColumnIdentifiers(columns);
         
         setTableData(phieuKhamBenhService.getAllPhieuKhamBenhs());
-//        
+     
         
         
     }
