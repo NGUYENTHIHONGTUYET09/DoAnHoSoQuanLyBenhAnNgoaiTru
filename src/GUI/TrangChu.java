@@ -14,7 +14,6 @@ public class TrangChu extends JFrame {
 
     public TrangChu() {
         init();
-        this.setVisible(true);
     }
 
     public void init() {

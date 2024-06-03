@@ -290,9 +290,6 @@ public class DangNhapGUI extends JFrame implements ActionListener {
         }
     }
     
-    public static void main (String[] args){
-        DangNhapGUI d = new DangNhapGUI(null);
-        d.setVisible(true);
-    }
+
     
 }

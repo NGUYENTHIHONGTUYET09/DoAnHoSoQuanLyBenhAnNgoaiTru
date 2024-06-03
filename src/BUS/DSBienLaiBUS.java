@@ -22,8 +22,10 @@ public class DSBienLaiBUS {
     public DSBienLaiBUS(QLyBienLaiGUI qlbl) {
         this.qlbl = qlbl;
     }
+    
 
-    public ArrayList<BienLaiDTO> getDsbl() {
+
+	public ArrayList<BienLaiDTO> getDsbl() {
         return dsbl;
     }
 
@@ -127,5 +129,13 @@ public class DSBienLaiBUS {
         }
 
         return doanhThuByYear;
+    }
+    
+    public ArrayList<Double> getDoanhThuThang(int nam) {
+        return bldao.getDoanhThuThang(nam);
+    }
+    
+    public DSBienLaiBUS() {
+        
     }
 }

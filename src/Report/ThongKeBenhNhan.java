@@ -22,7 +22,7 @@ public class ThongKeBenhNhan extends javax.swing.JFrame {
                        
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
       
         ThongKeBenhNhanJPanel thongkeJpanel1 = new ThongKeBenhNhanJPanel(dsbn);

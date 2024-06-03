@@ -481,8 +481,8 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
                 cTDonThuoc.setSoLuong(soLuong);
 
                 cTDonThuoc.setGhiChu(String.valueOf(ctDonThuocModel.getValueAt(i, 4)));
-              cTDonThuocService.addCTDT(cTDonThuoc);
-             //   cTDonThuocService.addCTDT_PROC(cTDonThuoc);
+           //   cTDonThuocService.addCTDT(cTDonThuoc);
+                cTDonThuocService.addCTDT_PROC(cTDonThuoc);
           
                 System.out.println("Add 1 to CTDonThuoc");
             }

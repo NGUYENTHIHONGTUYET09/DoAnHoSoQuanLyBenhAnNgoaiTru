@@ -1,6 +1,8 @@
 
 package Report;
 
+import javax.swing.JFrame;
+
 import BUS.DanhSachBNBUS;
 import GUI.QuanLyThongTinBenhNhan;
 
@@ -23,6 +25,7 @@ public class ThongKePanelQueQuan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
+    	
         jpnRoot = new javax.swing.JPanel();
         jpnView1 = new javax.swing.JPanel();
         jpnView2 = new javax.swing.JPanel();
@@ -80,6 +83,7 @@ public class ThongKePanelQueQuan extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpnRoot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+       
     }// </editor-fold>                        
 
 

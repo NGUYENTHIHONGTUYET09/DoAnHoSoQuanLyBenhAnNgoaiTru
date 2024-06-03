@@ -47,7 +47,7 @@ public class CTDonThuocDAO {
     int rs = 0;
     try {
         Connection con = connect.getConnection();
-        String sql =  "{call sp_ThemThuocChiTietDonThuocV2(?, ?, ?)}";
+        String sql =  "{call sp_ThemThuocChiTietDonThuocV1(?, ?, ?)}";
 		CallableStatement cs = con.prepareCall(sql);
         
         cs.setInt(1, cTDonThuoc.getMaThuoc());

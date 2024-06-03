@@ -192,6 +192,47 @@ public class BienLaiDAO {
 
         return doanhThuByYear;
     }
+  
+  public ArrayList<Double> getDoanhThuThang(int nam) {
+      ArrayList<Double> doanhThuTungThang= new ArrayList<Double>();
+      String sql = "WITH Months AS (\n" +
+                  "    SELECT 1 AS MonthNumber\n" +
+                  "    UNION ALL\n" +
+                  "    SELECT MonthNumber + 1\n" +
+                  "    FROM Months\n" +
+                  "    WHERE MonthNumber < 12\n" +
+                  ")\n" +
+                  "\n" +
+                  "SELECT \n" +
+                  "    m.MonthNumber AS Thang,\n" +
+                  "    ISNULL(SUM(b.TONGTIENKHAM), 0) AS DoanhThu\n" +
+                  "FROM \n" +
+                  "    Months m\n" +
+                  "LEFT JOIN \n" +
+                  "    BIENLAI b ON m.MonthNumber = MONTH(b.NGAYTAO) AND YEAR(b.NGAYTAO) = (?)\n" +
+                  "GROUP BY \n" +
+                  "    m.MonthNumber\n" +
+                  "ORDER BY \n" +
+                  "    Thang";
+      try {
+          PreparedStatement preStmt = conn.prepareStatement(sql);
+          preStmt.setInt(1, nam);
+          ResultSet rs = preStmt.executeQuery();
+          
+          int thang = 1;
+          while (rs.next()) {
+              doanhThuTungThang.add(rs.getDouble("DoanhThu"));
+              thang++;
+          }
+
+          rs.close();
+          
+      } catch (SQLException ex) {
+          ex.printStackTrace();
+      }
+      return doanhThuTungThang;
+  }
+  
     public static void main(String[] args) {
         BienLaiDAO blDao = new BienLaiDAO();
       
