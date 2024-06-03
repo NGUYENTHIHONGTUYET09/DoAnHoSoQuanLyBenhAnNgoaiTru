@@ -47,7 +47,7 @@ public class CTDonThuocDAO {
     int rs = 0;
     try {
         Connection con = connect.getConnection();
-        String sql =  "{call sp_ThemThuocChiTietDonThuocV1(?, ?, ?)}";
+        String sql =  "{call sp_ThemThuocChiTietDonThuocV2(?, ?, ?)}";
 		CallableStatement cs = con.prepareCall(sql);
         
         cs.setInt(1, cTDonThuoc.getMaThuoc());
@@ -61,8 +61,25 @@ public class CTDonThuocDAO {
     }
     return rs;
 }
-      
- 
+//      
+//      public int themChiTietDonThuoc_NON(CTDonThuoc cTDonThuoc) {
+//    	  int rs = 0;
+//          try (Connection con = connect.getConnection()) {
+//              String sql = "{CALL ThemCTDonThuoc(?, ?, ?)}";
+//              try (CallableStatement cs = con.prepareCall(sql)) {
+//                  cs.setInt(1,  cTDonThuoc.getMaThuoc());
+//                  cs.setInt(2,  cTDonThuoc.getMaToa());
+//                  cs.setInt(3, cTDonThuoc.getSoLuong());
+//
+//                  rs = cs.executeUpdate();
+//                  System.out.println("Thêm chi tiết đơn thuốc thành công.");
+//              }
+//          } catch (SQLException e) {
+//              e.printStackTrace();
+//              System.out.println("Thêm chi tiết đơn thuốc thất bại: " + e.getMessage());
+//          }
+//          return rs;
+//      }
 
     
 }

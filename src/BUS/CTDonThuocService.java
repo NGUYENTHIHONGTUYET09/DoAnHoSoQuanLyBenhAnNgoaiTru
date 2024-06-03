@@ -25,4 +25,8 @@ public class CTDonThuocService {
     	return cTDonThuocDAO.addCTDT_PROC(cTDonThuoc);
     }
     
+//    public int themChiTietDonThuoc_NON(CTDonThuoc cTDonThuoc) {
+//    	return cTDonThuocDAO.themChiTietDonThuoc_NON(cTDonThuoc);
+//    }
+    
 }

@@ -38,10 +38,8 @@ public class ThongKePanelDoanhThu extends JPanel {
                 // Xử lý sự kiện đóng
                 System.out.println("Close button clicked");
                 // Đóng panel hoặc thực hiện hành động khác
-                // Ví dụ: ((JFrame) SwingUtilities.getWindowAncestor(ThongKePanelDoanhThu.this)).dispose();
-                ThongKePanelDoanhThu.this.setVisible(false);
-                TrangChuAdmin tca = new TrangChuAdmin();
-                tca.setVisible(true);
+             ((JFrame) SwingUtilities.getWindowAncestor(ThongKePanelDoanhThu.this)).dispose();
+              
             }
         });
 

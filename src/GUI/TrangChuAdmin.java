@@ -83,7 +83,7 @@ public class TrangChuAdmin extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new ThongKeBenhNhan(dsbn).setVisible(true);
-				dispose();
+			//dispose();
 			}
 		});		
         
@@ -101,7 +101,7 @@ public class TrangChuAdmin extends JFrame implements ActionListener {
                     // TODO: handle exception
                     ex.printStackTrace();
                 }
-                dispose();
+         //       dispose();
             }
         });
         JPanel jpanel_button = new JPanel(new GridLayout(2, 2, 10, 10));

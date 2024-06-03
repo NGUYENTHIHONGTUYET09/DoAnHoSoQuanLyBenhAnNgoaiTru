@@ -17,12 +17,14 @@ import DTO.NhanVien;
 import DTO.PhongKham;
 import DTO.ToaThuoc;
 import interfaces.AddListThuocInterface;
-import java.awt.Font;
+import java.awt.print.PrinterException;
 import java.util.ArrayList;
 
 //import com.toedter.calendar.JDateChooser;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -53,7 +55,7 @@ public class ThemPKB extends javax.swing.JFrame {
      * Creates new form NewThemPKB
      */
     public ThemPKB() {
-         initComponents();
+        initComponents();
         
         this.setLocationRelativeTo(null);
         
@@ -120,14 +122,14 @@ public class ThemPKB extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        inPKB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        maPKLb.setText("Tên PK");
+        maPKLb.setText("Mã PK");
 
         jLabel1.setForeground(new java.awt.Color(0, 51, 204));
         jLabel1.setText("THÊM MỚI PHIẾU KHÁM BỆNH");
-         jLabel1.setFont(new Font("Arial", Font.BOLD, 15));
 
         maKBLb.setText("Mã Khám Bệnh");
 
@@ -144,10 +146,6 @@ public class ThemPKB extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-//                TrangChu tc = new TrangChu();
-//                tc.setVisible(true);
-//                dispose();
-                
             }
         });
 
@@ -155,6 +153,14 @@ public class ThemPKB extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        inPKB.setText("In PKB");
+        inPKB.setSize(new java.awt.Dimension(120, 23));
+        inPKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inPKBActionPerformed(evt);
             }
         });
 
@@ -171,9 +177,11 @@ public class ThemPKB extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(inPKB, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(maBSLb)
@@ -192,7 +200,7 @@ public class ThemPKB extends javax.swing.JFrame {
                                             .addComponent(maBSCb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(PKComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(maBNComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +230,8 @@ public class ThemPKB extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(inPKB))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -247,28 +256,65 @@ public class ThemPKB extends javax.swing.JFrame {
 
             phieuKhamBenh.setCHANDOAN("");
 
-            int i = phieuKhamBenhService.addPhieuKhamBenh(phieuKhamBenh);
-               
-            System.out.println(i); 
+            phieuKhamBenhService.addPhieuKhamBenh(phieuKhamBenh);
             System.out.println("PhieuKhamBenh added successfully."); 
             
             PhieuKhamBenh LastphieuKhamBenh = phieuKhamBenhService.getlastPhieuKhamBenh();
             System.out.println("Ma PKB: " + LastphieuKhamBenh.getMAPKB()); 
 
 //            new QuanLyThongTinKhamBenh().setVisible(true);
-          //  this.dispose();
+//            this.dispose();
         } catch (NumberFormatException ex) {
-           
+            // Print the stack trace for debugging
+            // Handle the exception (e.g., show an error message)
+            
         }
-    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TrangChu tc = new TrangChu();
-        tc.setVisible(true);
+        // TODO add your handling code here:
         this.dispose();
-    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void inPKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inPKBActionPerformed
+        // TODO add your handling code here:
+        PhieuKhamBenh LastphieuKhamBenh = phieuKhamBenhService.getlastPhieuKhamBenh();
+        System.out.println("Ma PKB: " + LastphieuKhamBenh.getMAPKB()); 
+        try {
+            new PhieuKhamBenhPrintGUI(LastphieuKhamBenh).setVisible(true);
+        } catch (PrinterException ex) {
+            Logger.getLogger(ThemPKB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_inPKBActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
-      
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ThemPKB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ThemPKB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ThemPKB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ThemPKB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ThemPKB().setVisible(true);
@@ -278,6 +324,7 @@ public class ThemPKB extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> PKComboBox;
+    private javax.swing.JButton inPKB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -291,5 +338,4 @@ public class ThemPKB extends javax.swing.JFrame {
     private javax.swing.JLabel maPKLb;
     private javax.swing.JLabel ngayTaoLb;
     // End of variables declaration//GEN-END:variables
-    
 }
