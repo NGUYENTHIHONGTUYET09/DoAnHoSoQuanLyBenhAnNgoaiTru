@@ -284,7 +284,7 @@ public class ThuocGUI extends javax.swing.JFrame {
 
     private void trangChuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangChuButtonActionPerformed
         // TODO add your handling code here:
-        //        new TrangChu().setVisible(true);
+                new TrangChuDangNhapGUI().setVisible(true);
 
     }//GEN-LAST:event_trangChuButtonActionPerformed
 

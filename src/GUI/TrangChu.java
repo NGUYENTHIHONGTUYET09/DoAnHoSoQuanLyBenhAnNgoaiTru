@@ -66,19 +66,35 @@ public class TrangChu extends JFrame {
                 switchToThemPKBUGI();
             }
         });
+        
+        JButton jButton_dangxuat = new JButton("Đăng xuất");
+        jButton_dangxuat.setBackground(new Color(200, 200, 200, 10)); // Màu xám nhạt với độ trong suốt 150
+        jButton_dangxuat.setFont(new Font("Arial", Font.BOLD, 10));
+        jButton_dangxuat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             TrangChuDangNhapGUI tcdng = new TrangChuDangNhapGUI();
+             tcdng.setVisible(true);
+             dispose();
+            }
+        });
+
 
        
         // Thiết lập kích thước mong muốn cho JButton
         Dimension buttonSize = new Dimension(200, 50);
         jButton_xemthongtin.setPreferredSize(buttonSize);
         jButton_dangky.setPreferredSize(buttonSize);
-  
+        jButton_dangxuat.setPreferredSize(buttonSize);
+        
         JPanel jPanel_south = new JPanel();
         jPanel_south.setOpaque(false); // Đặt nền trong suốt
         jPanel_south.setBorder(new EmptyBorder(0, 0, 20, 0)); // Đặt khoảng cách trên là 10
         jPanel_south.add(jButton_xemthongtin);
         jPanel_south.add(jButton_dangky);
-;
+        jPanel_south.add(jButton_dangxuat);
+
+
 
         // Đặt JPanel chứa hình ảnh và lớp nền bóng lên frame
         add(imagePanel);
@@ -100,15 +116,15 @@ public class TrangChu extends JFrame {
         dispose();
     }
 
- 
-    public static void main(String args[]) {
-
-        try {// giao diện
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            TrangChu dn = new TrangChu();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
+// 
+//    public static void main(String args[]) {
+//
+//        try {// giao diện
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//            TrangChu dn = new TrangChu();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//
+//    }
 }

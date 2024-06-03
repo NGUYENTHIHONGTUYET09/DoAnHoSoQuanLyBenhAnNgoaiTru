@@ -91,12 +91,7 @@ public class DangKyGUI extends JFrame {
         setVisible(true);
     }
 
-//	public DangKyGUI() {
-//		dsdkbus = new DanhSachDKBUS();
-//		dsbnbus = new DanhSachBNBUS(qlttbn);
-//		init();
-//		setVisible(true);
-//	}
+
     public void init(boolean isFromLogin) {
         this.setTitle("Đăng Ký");
         this.setSize(580, 310);
@@ -274,8 +269,9 @@ public class DangKyGUI extends JFrame {
             }
 
           //  switchToDSDKGUI();
-        TrangChuDangNhapGUI tcdng = new TrangChuDangNhapGUI();
-        tcdng.setVisible(true);
+            TrangChuAdmin tca = new TrangChuAdmin();
+            
+            tca.setVisible(true);
             dispose();
             
             try{

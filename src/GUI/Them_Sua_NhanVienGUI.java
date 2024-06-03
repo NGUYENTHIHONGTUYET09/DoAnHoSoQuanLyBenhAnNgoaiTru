@@ -134,7 +134,7 @@ public class Them_Sua_NhanVienGUI extends JFrame {
                 
                 jlabel_VAITRO = new JLabel("Vai trò:");
 		jlabel_VAITRO.setFont(font_2);
-		String[] vaiTroOptions = { "NV Thanh toán", "NV Tiếp nhận", "Bác sĩ" };
+		String[] vaiTroOptions = { "NV Thanh toán", "NV Tiếp nhận", "Bác sĩ", "Admin", "Quản lý kho" };
                 combobox_VAITRO = new JComboBox<>(vaiTroOptions);
 		combobox_VAITRO.setFont(font_2);
                 combobox_VAITRO.setSelectedIndex(-1);

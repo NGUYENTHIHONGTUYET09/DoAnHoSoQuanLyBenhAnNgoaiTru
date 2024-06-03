@@ -9,30 +9,30 @@ import java.util.Optional;
 public class NhanVienDAO {
 	  Connection conn = connect.getConnection();
 
-   public ArrayList<NhanVien> getAll() {
-    ArrayList<NhanVien> listNV = new ArrayList<>();
-    String sql = "SELECT * FROM NHANVIEN";
-    try {
-        PreparedStatement preStmt = conn.prepareStatement(sql);
-        ResultSet rs = preStmt.executeQuery();
-        while (rs.next()) {
-            listNV.add(new NhanVien(
-                rs.getInt("ID"),
-                rs.getString("MANV"),
-                rs.getString("HOTEN"),
-                rs.getDate("NGAYSINH"),
-                rs.getString("DIACHI"),
-                rs.getString("GIOITINH"),
-                rs.getDate("NGAYVL"),
-                rs.getString("VAITRO"),
-                rs.getString("TRANGTHAI")
-            ));
-        }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    }
-    return listNV;
-}
+	  public ArrayList<NhanVien> getAll() {
+		    ArrayList<NhanVien> listNV = new ArrayList<>();
+		    String sql = "SELECT * FROM NHANVIEN WHERE TRANGTHAI=N'Đang tồn tại'";
+		    try {
+		        PreparedStatement preStmt = conn.prepareStatement(sql);
+		        ResultSet rs = preStmt.executeQuery();
+		        while (rs.next()) {
+		            listNV.add(new NhanVien(
+		                rs.getInt("ID"),
+		                rs.getString("MANV"),
+		                rs.getString("HOTEN"),
+		                rs.getDate("NGAYSINH"),
+		                rs.getString("DIACHI"),
+		                rs.getString("GIOITINH"),
+		                rs.getDate("NGAYVL"),
+		                rs.getString("VAITRO"),
+		                rs.getString("TRANGTHAI")
+		            ));
+		        }
+		    } catch (SQLException ex) {
+		        ex.printStackTrace();
+		    }
+		    return listNV;
+		}
     
     public Optional<NhanVien> get(String manv){
         NhanVien nv = new NhanVien();

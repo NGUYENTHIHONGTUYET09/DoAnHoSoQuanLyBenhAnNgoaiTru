@@ -637,7 +637,7 @@ private void setTableData(ArrayList<PhieuKhamBenh> phieuKhamBenhs) {
             }
         });
 
-        updateBt.setText("Sửa");
+        updateBt.setText("Kê toa");
         updateBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtActionPerformed(evt);

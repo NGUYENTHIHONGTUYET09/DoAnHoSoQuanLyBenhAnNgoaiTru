@@ -7,6 +7,7 @@ package BUS;
 import DAO.ThuocDAO;
 import DTO.Thuoc;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 /**
  *
  * @author phamngochoang
@@ -48,4 +49,6 @@ public class ThuocService {
     {
         thuocDAO.suaThuoc1(thuoc);
     }
+    
+   
 }

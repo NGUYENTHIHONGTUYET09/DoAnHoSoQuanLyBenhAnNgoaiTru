@@ -196,8 +196,8 @@ public class SuaThuoc extends javax.swing.JFrame {
 
             thuoc.setSoLuongTon(Integer.parseInt(jTextField5.getText()));
 
-            thuocService.suaThuoc(thuoc);
-           //thuocService.suaThuoc1(thuoc);
+           // thuocService.suaThuoc(thuoc);
+           thuocService.suaThuoc1(thuoc);
             
 
             // Commit the transaction if using transactions

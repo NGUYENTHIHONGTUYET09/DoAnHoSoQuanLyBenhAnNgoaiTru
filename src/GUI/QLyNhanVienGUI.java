@@ -358,6 +358,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
         int selectedRow = jtable_table.getSelectedRow();
 
         if (selectedRow != -1 && selectedRow < modelTable.getRowCount()) {
+            String MANV = modelTable.getValueAt(selectedRow, 1).toString();
             String HOTEN = modelTable.getValueAt(selectedRow, 2).toString();
             Date NGAYSINH = (Date) modelTable.getValueAt(selectedRow, 3);
             String DIACHI = modelTable.getValueAt(selectedRow, 4).toString();
@@ -367,7 +368,8 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
             String TRANGTHAI = modelTable.getValueAt(selectedRow, 8).toString();
 
             NhanVien nv = new NhanVien();
-
+            
+            nv.setMANV(MANV);
             nv.setHOTEN(HOTEN);
             nv.setNGAYSINH(NGAYSINH);
             nv.setDIACHI(DIACHI);
@@ -375,7 +377,6 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
             nv.setNGAYVL(NGAYVL);
             nv.setVAITRO(VAITRO);
             nv.setTRANGTHAI(TRANGTHAI);
-
             return nv;
         } else {
             return null;

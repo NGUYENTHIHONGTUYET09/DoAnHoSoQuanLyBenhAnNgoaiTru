@@ -209,16 +209,25 @@ public class DangNhapGUI extends JFrame implements ActionListener {
         getContentPane().add(imagePanel, BorderLayout.CENTER);
     }
 
+//    public boolean kiemTraTaiKhoan(String taiKhoan, String matKhau, String vaiTro) {
+//        for (TaiKhoan tk : dsdk.getDSFromDB()) {
+//            System.out.print(tk);
+//            if (tk.getEmail().equals(taiKhoan) && tk.getMatKhau().equals(matKhau) && tk.getVaiTro().equals(vaiTro)) {
+//                return true;
+//            }
+//        }
+//        return false; // Trả về false nếu không có tài khoản nào khớp
+//    }
+
     public boolean kiemTraTaiKhoan(String taiKhoan, String matKhau, String vaiTro) {
         for (TaiKhoan tk : dsdk.getDSFromDB()) {
-            System.out.print(tk);
-            if (tk.getEmail().equals(taiKhoan) && tk.getMatKhau().equals(matKhau) && tk.getVaiTro().equals(vaiTro)) {
+            if (tk.getEmail().equals(taiKhoan) && tk.getMatKhau().equals(matKhau) 
+                    && tk.getVaiTro().equals(vaiTro) && tk.getTrangThai().equals("Hiệu lực")) {
                 return true;
             }
         }
         return false; // Trả về false nếu không có tài khoản nào khớp
     }
-
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == jbutton_dangNhap) {
