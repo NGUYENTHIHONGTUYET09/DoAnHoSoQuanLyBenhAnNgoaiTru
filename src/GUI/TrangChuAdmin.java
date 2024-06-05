@@ -75,7 +75,7 @@ public class TrangChuAdmin extends JFrame implements ActionListener {
         });
 
         JButton jbutton_thongkequequan = new JButton(
-                "<html><center>" + "Thống kê " + "<br>" + "quê quán" + "</center></html>");
+                "<html><center>" + "Thống kê " + "<br>" + "bệnh nhân" + "</center></html>");
         ImageIcon iconthongke = new ImageIcon(getClass().getResource("/ICon/iconChart.png"));
         jbutton_thongkequequan.setIcon(iconthongke);
         jbutton_thongkequequan.setFont(font);

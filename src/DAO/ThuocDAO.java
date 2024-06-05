@@ -104,23 +104,20 @@ public class ThuocDAO {
         return rs;
     }
     
-    public int xoaThuoc(int id){
+    public boolean xoaThuoc(int id) {
         int result = 0;
         try {
             Connection con = connect.getConnection();
-            String sql = "DELETE from Thuoc WHERE id=?";
+            String sql = "DELETE FROM Thuoc WHERE id=?";
             PreparedStatement st = con.prepareStatement(sql);
-            
             st.setInt(1, id);
             
             result = st.executeUpdate();
-            System.out.println("Bạn đã thực thi: " + sql);
-            System.out.println("Có : " + result + " bản ghi đã thay đổi");
-//            connect.closeConnection(con);
+            connect.closeConnection(con);
         } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        return result;
+        return result > 0;
     }
     
     public Thuoc getThuocByID(int id)

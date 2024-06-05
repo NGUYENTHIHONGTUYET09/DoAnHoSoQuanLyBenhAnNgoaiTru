@@ -9,10 +9,15 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
@@ -74,6 +79,10 @@ public class QuanLyThongKeController {
                 false
         );
 
+        // Lấy PiePlot từ PieChart để cấu hình hiển thị phần trăm
+        PiePlot plot = (PiePlot) piechart.getPlot();
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})"));
+
         ChartPanel chartPanel = new ChartPanel(piechart);
         chartPanel.setPreferredSize(new Dimension(jpnItem.getWidth(), 300));
 
@@ -83,15 +92,13 @@ public class QuanLyThongKeController {
         jpnItem.validate();
         jpnItem.repaint();
     }
-
-       public void setDataDoanhThuToColChart(JPanel jpnItem) {
+    public void setDataDoanhThuToColChart(JPanel jpnItem) {
         List<ReportDTO> listItem = thongKeServiceDoanhThu.getDoanhThuByYear();
-          System.out.println(listItem);
+        System.out.println(listItem);
         if (listItem != null && !listItem.isEmpty()) {
-           
+
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
             for (ReportDTO blItem : listItem) {
-               
                 dataset.addValue(blItem.getMoney(), "Doanh Thu", blItem.getYear());
             }
 
@@ -109,6 +116,19 @@ public class QuanLyThongKeController {
             jpnItem.add(chartPanel, BorderLayout.CENTER);
             jpnItem.validate();
             jpnItem.repaint();
+        } else {
+            // Nếu không có số liệu, chèn hình ảnh vào panel
+            ImageIcon iconHeader = new ImageIcon(getClass().getResource("/ICon/iconNoMoney.png"));
+            JLabel noDataLabel = new JLabel("CHƯA CÓ DOANH THU", iconHeader, JLabel.CENTER);
+
+            noDataLabel.setIcon(iconHeader);
+
+            jpnItem.removeAll();
+            jpnItem.setLayout(new BorderLayout());
+            jpnItem.add(noDataLabel, BorderLayout.NORTH); // Đặt JLabel ở vị trí NORTH
+            jpnItem.validate();
+            jpnItem.repaint();
         }
     }
+
 }

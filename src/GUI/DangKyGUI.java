@@ -351,6 +351,11 @@ public class DangKyGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        if(!vaiTro.equals(nv.getVAITRO())) {
+            JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+
+        }
 
         TaiKhoan newTK = new TaiKhoan();
         newTK.setHoTen(hoten);

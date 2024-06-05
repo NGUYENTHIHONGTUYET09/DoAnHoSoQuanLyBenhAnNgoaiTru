@@ -470,6 +470,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -893,4 +894,16 @@ private void setTableData(ArrayList<PhieuKhamBenh> phieuKhamBenhs) {
     private javax.swing.JButton updateBt;
     private javax.swing.JMenuItem xuatPKB;
     // End of variables declaration//GEN-END:variables
+    
+    public static void main(String args[]) {
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+           QuanLyThongTinKhamBenh qlttkb = new QuanLyThongTinKhamBenh();
+           qlttkb.setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
 }

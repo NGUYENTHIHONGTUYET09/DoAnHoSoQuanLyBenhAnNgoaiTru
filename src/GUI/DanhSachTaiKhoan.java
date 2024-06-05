@@ -26,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import BUS.DanhSachTKBUS;
@@ -37,7 +39,7 @@ import interfaces.TableInterface;
 public class DanhSachTaiKhoan extends JFrame implements TableInterface {
 
     public JTable jtable_table;
-    private DanhSachTKBUS dsdkbus;
+    public DanhSachTKBUS dsdkbus;
     private JTextField jTextField_timkiemSDT;
     private NhanVienDAO nvd = new NhanVienDAO();
     private TableInterface tableInterface;
@@ -99,17 +101,38 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
 
         // ----------
         jTextField_timkiemSDT = new JTextField(15);
-
-        JButton jButton_timkiem = new JButton("Tìm kiếm");
-      //  jButton_timkiem.setBackground(new Color(183, 226, 250));
-        jButton_timkiem.setOpaque(true);
-        jButton_timkiem.setBorderPainted(false);
-        jButton_timkiem.addActionListener(new ActionListener() {
+        jTextField_timkiemSDT.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void insertUpdate(DocumentEvent e) {
+                handleTextChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                handleTextChange();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                handleTextChange();
+            }
+
+            private void handleTextChange() {
+                // Xử lý khi văn bản trong JTextField thay đổi
                 timKiem();
             }
         });
+
+        JButton jButton_timkiem = new JButton("Tìm kiếm theo số điện thoại");
+      //  jButton_timkiem.setBackground(new Color(183, 226, 250));
+        jButton_timkiem.setOpaque(true);
+        jButton_timkiem.setBorderPainted(false);
+//        jButton_timkiem.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                timKiem();
+//            }
+//        });
 
         JButton jButton_quaylai = new JButton("Làm mới");
        // jButton_quaylai.setBackground(new Color(183, 226, 250));
@@ -339,16 +362,16 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
         }
     }
 
-    public void deleteDangKy() {
-        DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
-        int i_row = jtable_table.getSelectedRow();
-        int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa dòng đã chọn?");
-        if (luaChon == JOptionPane.YES_OPTION) {
-            TaiKhoan dk = showInfoChoosing();
-            if (dk != null) {
-                dsdkbus.xoaDangKy(String.valueOf(dk.getMaSoNV()));
-                model_table.removeRow(i_row);
-            }
+//    public void deleteDangKy() {
+//        DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
+//        int i_row = jtable_table.getSelectedRow();
+//        int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa dòng đã chọn?");
+//        if (luaChon == JOptionPane.YES_OPTION) {
+//            TaiKhoan dk = showInfoChoosing();
+//            if (dk != null) {
+//                dsdkbus.xoaDangKy(String.valueOf(dk.getMaSoNV()));
+//                model_table.removeRow(i_row);
+//            }
             // Xóa từ bảng thôi
 //        } else {
 //            String maNhanVienInput = dkg.jTextField_maso.getText().trim();
@@ -361,8 +384,40 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
 //                    }
 //                }
 //            }
+//        }
+//    }
+    
+    
+    public void deleteDangKy() {
+        DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
+        int i_row = jtable_table.getSelectedRow();
+        
+        // Ensure a row is selected
+        if (i_row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Confirmation dialog
+        int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa dòng đã chọn?");
+        if (luaChon == JOptionPane.YES_OPTION) {
+            // Retrieve selected row's data
+            TaiKhoan dk = showInfoChoosing();
+            if (dk != null) {
+                // Attempt to delete the entry from the database
+                if (dsdkbus.xoaDangKy(String.valueOf(dk.getMaSoNV()))) {
+                    // Remove the row from the table model
+                    model_table.removeRow(i_row);
+                    JOptionPane.showMessageDialog(this, "Deleted successfully.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Could not retrieve selected entry.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
+
 
     @Override
     public void resetTable() {
@@ -393,7 +448,7 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
 
         if (!sdtInput.isEmpty()) {
             for (TaiKhoan dk : dsdkbus.getDSFromDB()) {
-                if (dk.getSoDienThoai().equals(sdtInput)) {
+                if (dk.getSoDienThoai().contains(sdtInput)) {
 
                     NhanVien nv = nvd.getById(dk.getMaSoNV());
                     insertIntoTable(dk, nv);
@@ -404,7 +459,7 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
         }
 
         if (!found) {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy bệnh nhân!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không tìm thấy tài khoản!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
 

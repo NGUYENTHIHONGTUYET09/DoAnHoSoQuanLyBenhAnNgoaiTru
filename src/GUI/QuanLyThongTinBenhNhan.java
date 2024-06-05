@@ -177,7 +177,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
                 timKiem();
             }
         });
-        jbutton_timkiem = new JButton("Tìm Kiếm");
+        jbutton_timkiem = new JButton("Tìm Kiếm theo số điện thoại");
         jbutton_timkiem.setBackground(Color.WHITE);
 
         JButton jbutton_quaylai = new JButton("Làm mới");

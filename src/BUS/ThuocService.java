@@ -7,6 +7,7 @@ package BUS;
 import DAO.ThuocDAO;
 import DTO.Thuoc;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 /**
  *
@@ -14,9 +15,17 @@ import java.util.stream.Collectors;
  */
 public class ThuocService {
     private final ThuocDAO thuocDAO;
+    private List<Thuoc> thuocs;
     
     public ThuocService(){
         thuocDAO = new ThuocDAO();
+        thuocs = new ArrayList<>();
+    }
+    
+   
+
+    public ArrayList<Thuoc> getAllThuocs1() {
+        return new ArrayList<>(thuocs);
     }
     
     public ArrayList <Thuoc> getAllThuocs(){
@@ -32,8 +41,8 @@ public class ThuocService {
         thuocDAO.addThuoc(thuoc);
     }
     
-    public void removeThuoc(int id){
-        thuocDAO.xoaThuoc(id);
+    public boolean removeThuoc(int id){
+        return thuocDAO.xoaThuoc(id);
     }
     
     public Thuoc getThuocByID(int id){
@@ -50,5 +59,14 @@ public class ThuocService {
         thuocDAO.suaThuoc1(thuoc);
     }
     
+    public ArrayList<Thuoc> getThuocsByTenThuocs1(String tenThuoc) {
+        ArrayList<Thuoc> result = new ArrayList<>();
+        for (Thuoc thuoc : thuocs) {
+            if (thuoc.getTenThuoc().toLowerCase().contains(tenThuoc.toLowerCase())) {
+                result.add(thuoc);
+            }
+        }
+        return result;
+    }
    
 }

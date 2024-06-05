@@ -448,6 +448,8 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         int rs = toaThuocService.addToaThuoc(toaThuoc);
         if (rs != 0){
             System.out.println("ToaThuoc added successfully.");
+            JOptionPane.showMessageDialog(this, "Thêm thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
         }
         else
         { 
@@ -481,9 +483,10 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
                 cTDonThuoc.setSoLuong(soLuong);
 
                 cTDonThuoc.setGhiChu(String.valueOf(ctDonThuocModel.getValueAt(i, 4)));
-           //   cTDonThuocService.addCTDT(cTDonThuoc);
-                cTDonThuocService.addCTDT_PROC(cTDonThuoc);
-          
+                cTDonThuocService.addCTDT(cTDonThuoc);
+           //     cTDonThuocService.addCTDT_PROC(cTDonThuoc);
+                JOptionPane.showMessageDialog(this, "Thêm thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
                 System.out.println("Add 1 to CTDonThuoc");
             }
         }

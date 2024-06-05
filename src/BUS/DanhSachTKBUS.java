@@ -101,30 +101,39 @@ public class DanhSachTKBUS {
         }
     }
 
-    public void xoaDangKy(String ma) {
-        // Tìm kiếm bệnh nhân trong danh sách
+//    
+
+    public boolean xoaDangKy(String ma) {
+        boolean deleted = false;
+
+        // Iterate over the list to find the matching record
         for (int i = 0; i < dsdk.size(); i++) {
             TaiKhoan dk = dsdk.get(i);
-            int maSo = 0; // Mã sẽ được sử dụng để xóa
 
-            // Kiểm tra xem ma là mã của maSoBN hay maSoNV
+            // Check if the provided ID matches the record's ID
             if (dk.getMaSoNV() == Integer.valueOf(ma)) {
-                maSo = dk.getMaSoNV();
-            }
-
-            // Nếu maSo khác 0 và hàm deleteDangKy trả về kết quả lớn hơn 0, tức là xóa thành công
-            if (maSo != 0 && dkdao.deleteDangKy(dk) > 0) {
-                dsdk.remove(i);
-                tableInterface.resetTable();
-                JOptionPane.showMessageDialog(null, "Đã xóa thành công", "Thông báo", JOptionPane.WARNING_MESSAGE);
-                return;
-            } else {
-                JOptionPane.showMessageDialog(null, "Xóa không thành công", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
+                // Attempt to delete the record from the database
+                if (dkdao.deleteDangKy(dk) > 0) {
+                    // Remove the record from the list
+                    dsdk.remove(i);
+                    // Reset the table interface if needed
+                    tableInterface.resetTable();
+                    JOptionPane.showMessageDialog(null, "Deleted successfully.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    deleted = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Deletion failed.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
             }
         }
-        // Nếu không tìm thấy bệnh nhân trong danh sách
-        JOptionPane.showMessageDialog(null, "Không tìm thấy bệnh nhân", "Thông báo", JOptionPane.WARNING_MESSAGE);
+
+        // If the record was not found in the list
+        if (!deleted) {
+            JOptionPane.showMessageDialog(null, "Record not found.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return deleted;
     }
+
 
 }

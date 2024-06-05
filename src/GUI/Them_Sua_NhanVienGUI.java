@@ -168,7 +168,7 @@ public class Them_Sua_NhanVienGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				addNhanVienVaoTable();
 				
-				switchToAddNhanVienGUI();
+				//switchToAddNhanVienGUI();
 			}
 		});
 
@@ -190,11 +190,11 @@ public class Them_Sua_NhanVienGUI extends JFrame {
                 addWindowListener(new WindowAdapter() {
                     public void windowClosing(WindowEvent e) {
                         jtextfield_HOTEN.setText("");
-                        Date date = new Date();
-                        ngaySinhChooser.setDate(date);
+                       // Date date = new Date();
+                        ngaySinhChooser.setDate(null);
                         jtextfield_DIACHI.setText("");
                         combobox_GIOITINH.setSelectedIndex(-1);
-                        ngayVLChooser.setDate(date);
+                        ngayVLChooser.setDate(null);
                         combobox_VAITRO.setSelectedIndex(-1);
                         setVisible(false);
                     }

@@ -76,8 +76,8 @@ public class Them_Sua_BenhNhan extends JFrame {
     public void init() {
         setTitle("Thông tin bệnh nhân");
 
-        this.setSize(700, 500);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(750, 500);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setBackground(Color.WHITE);
         URL urlIconNotepad = DangNhapGUI.class.getResource("/ICon/iconPatient.png");
@@ -203,7 +203,7 @@ public class Them_Sua_BenhNhan extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 addBenhNhanVaoTable();
 
-                switchToAddPatientGUI();
+          //      switchToAddPatientGUI();
             }
         });
 
@@ -257,48 +257,48 @@ public class Them_Sua_BenhNhan extends JFrame {
         if (queQuanIndex < 0) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn quê quán!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
+        }
+
+        java.sql.Date ngaySinh = null;
+        try {
+            ngaySinh = new java.sql.Date(dateFormat.parse(NGAYSINH).getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Tinh tinh = null;
+        if (queQuanIndex > 0) {
+            ArrayList<Tinh> listTinh = tinhdao.fetchAllTinh();
+            tinh = listTinh.get(queQuanIndex - 1);
+        }
+
+        String gioiTinh = this.combobox_GIOITINH.getSelectedItem().toString();
+        BenhNhan newBN = new BenhNhan();
+        newBN.setTenBN(tenbn);
+        newBN.setSdt(sdt);
+        newBN.setNgaySinh(ngaySinh);
+        newBN.setDiaChi(diachi);
+        newBN.setGioiTinh(gioiTinh);
+        if (tinh != null) {
+            newBN.setQueQuan(tinh.getId());
+        }
+        newBN.setGhiChu(ghichu);
+
+        boolean success = dsbn.addBenhNhan(newBN);
+
+        if (success) {
+            // Thêm thông tin của bệnh nhân mới vào bảng với cả hai tham số BenhNhan và Tinh
+            qlttbn.insertIntoTable(newBN, tinh);
+            qlttbn.fillData(); // Sau khi thêm thì gọi fetch data lại
+            JOptionPane.showMessageDialog(this, "Thêm bệnh nhân thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            dispose(); // Chỉ đóng cửa sổ nếu thêm thành công
         } else {
-            java.sql.Date ngaySinh = null;
-            try {
-                ngaySinh = new java.sql.Date(dateFormat.parse(NGAYSINH).getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            Tinh tinh = null;
-            if (queQuanIndex > 0) {
-                ArrayList<Tinh> listTinh = tinhdao.fetchAllTinh();
-                tinh = listTinh.get(queQuanIndex - 1);
-            }
-
-             String gioiTinh = this.combobox_GIOITINH.getSelectedItem().toString();
-            BenhNhan newBN = new BenhNhan();
-            newBN.setTenBN(tenbn);
-            newBN.setSdt(sdt);
-            newBN.setNgaySinh(ngaySinh);
-            newBN.setDiaChi(diachi);
-            newBN.setGioiTinh(gioiTinh);
-            if (tinh != null) {
-                newBN.setQueQuan(tinh.getId());
-            }
-            newBN.setGhiChu(ghichu);
-
-            boolean success = dsbn.addBenhNhan(newBN);
-
-            if (success) {
-                // Thêm thông tin của bệnh nhân mới vào bảng với cả hai tham số BenhNhan và Tinh
-                qlttbn.insertIntoTable(newBN, tinh);
-                qlttbn.fillData(); // Sau khi thêm thì gọi fetch data lại
-                JOptionPane.showMessageDialog(this, "Thêm bệnh nhân thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Bệnh nhân đã tồn tại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            }
-            this.dispose();
+            JOptionPane.showMessageDialog(this, "Bệnh nhân đã tồn tại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
+
 
     public void editBenhNhan() {
         BenhNhan selectedBenhNhan = qlttbn.showInfoChoosing();

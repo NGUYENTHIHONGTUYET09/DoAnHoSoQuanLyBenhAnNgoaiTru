@@ -9,6 +9,8 @@ import BUS.ThuocService;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ThuocGUI extends javax.swing.JFrame {
@@ -138,6 +140,8 @@ public class ThuocGUI extends javax.swing.JFrame {
                 searchFieldActionPerformed(evt);
             }
         });
+        
+     
 
         refreshButton.setText("Làm Mới");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -213,29 +217,36 @@ public class ThuocGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_addBtActionPerformed
 
-    private void removeBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtActionPerformed
-        // TODO add your handling code here:
+    private void removeBtActionPerformed(java.awt.event.ActionEvent evt) {
         int row = ThuocTable.getSelectedRow();
-        
-        if (row == -1){
+
+        if (row == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dữ liệu cần xoá", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-        else {
+        } else {
             int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa dòng đã chọn?");
             
             if (luaChon == JOptionPane.YES_OPTION) {
                 int id = Integer.parseInt(String.valueOf(ThuocTable.getValueAt(row, 0)));
-                
-                
-//                PhieuKhamBenh phieuKhamBenh = phieuKhamBenhService.getPKBbyID(id);
-                
-                thuocService.removeThuoc(id);
+
+                // Call the service to "remove" the item
+                boolean success = thuocService.removeThuoc(id);
+
+                // Check if the operation was successful
+                if (success) {
+                    // Update the status in the table model instead of removing the row
+                    DefaultTableModel model = (DefaultTableModel) ThuocTable.getModel();
+                    model.setValueAt("Đã hết thuốc", row, 6); // Assuming column index 6 is `trangThai`
+
+                    JOptionPane.showMessageDialog(this, "Thuốc đã được cập nhật trạng thái.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật trạng thái thất bại.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
-        
-        defaultTableModel.setRowCount(0);
-        setTableData(thuocService.getAllThuocs());  
-    }//GEN-LAST:event_removeBtActionPerformed
+    }
+
+
+
 
     private void updateBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtActionPerformed
         // TODO add your handling code here:
