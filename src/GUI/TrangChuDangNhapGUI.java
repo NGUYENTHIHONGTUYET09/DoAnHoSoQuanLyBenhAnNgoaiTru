@@ -23,7 +23,7 @@ public class TrangChuDangNhapGUI extends JFrame {
         setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Tạo một JPanel để chứa hình ảnh và lớp nền bóng
+    
         JPanel imagePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {

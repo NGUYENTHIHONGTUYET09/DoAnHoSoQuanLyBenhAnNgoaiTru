@@ -42,12 +42,7 @@ public class CreateDonThuoc extends JFrame implements NewTableInterface{
     private List<CTDonThuoc> listCTDonThuoc = new ArrayList<CTDonThuoc>();
     private AddListThuocInterface addlistThuocInterface;
 
-    /**
-     * Launch the application.
-     */
-    /**
-     * Create the frame.
-     */
+   
     public CreateDonThuoc(AddListThuocInterface addlistThuocInterface) {
 
         this.addlistThuocInterface = addlistThuocInterface;
@@ -103,17 +98,7 @@ public class CreateDonThuoc extends JFrame implements NewTableInterface{
                 CustomComboRenderer::getThuocDisplayText, this::thuocFilter,this);
 
         cbThuoc.setRenderer(new CustomComboRenderer(decorate.getFilterTextSupplier()));
-//        cbThuoc.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            
-//                selectedThuoc = (Thuoc) cbThuoc.getSelectedItem();
-//                listCTDonThuoc.add(new CTDonThuoc(selectedThuoc.getId(), selectedThuoc.getTenThuoc()));
-//                resetTable();
-//            }
-//        });
-       
+
 
         getContentPane().add(cbThuoc);
         table.getColumnModel().getColumn(0).setResizable(false);

@@ -118,8 +118,7 @@ public class Them_Sua_BienLaiGUI extends JFrame {
 
 		jbutton_them = new JButton("Thêm");
 		jbutton_them.setFont(font_2);
-	//	jbutton_them.setBackground(Color.WHITE);
-
+	
 		JPanel jpanel_bottom = new JPanel();
 		jpanel_bottom.setLayout(new GridLayout(1, 2));
 		jpanel_bottom.add(jbutton_them);
@@ -165,7 +164,7 @@ public class Them_Sua_BienLaiGUI extends JFrame {
                 boolean success = dsbl.addBienLaiDTO(maToa);
 
                 if (success) {
-                    qlbl.fillData(); // Sau khi them thi goi fetch data lai
+                    qlbl.fillData(); 
                     JOptionPane.showMessageDialog(this, "Thêm biên lai thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     ClearForm();
                     dispose(); 

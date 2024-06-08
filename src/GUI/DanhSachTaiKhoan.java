@@ -68,7 +68,7 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
 
     public void init() {
         this.setTitle("Danh Sách Đăng Ký");
-        this.setSize(850, 400);
+        this.setSize(1200, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

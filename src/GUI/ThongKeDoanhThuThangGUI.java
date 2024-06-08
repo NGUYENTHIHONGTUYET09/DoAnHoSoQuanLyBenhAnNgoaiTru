@@ -104,7 +104,7 @@ public class ThongKeDoanhThuThangGUI extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -199,11 +199,11 @@ public class ThongKeDoanhThuThangGUI extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void cbboxNamSelectionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbboxNamSelectionItemStateChanged
         ResetUI();
-    }//GEN-LAST:event_cbboxNamSelectionItemStateChanged
+    }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -213,12 +213,10 @@ public class ThongKeDoanhThuThangGUI extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbboxNamSelection;
     private javax.swing.JLabel imageLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblNoMoney;
     private javax.swing.JLabel lblTieuDe;
-    // End of variables declaration//GEN-END:variables
 }

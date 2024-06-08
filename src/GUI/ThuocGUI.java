@@ -47,7 +47,7 @@ public class ThuocGUI extends javax.swing.JFrame {
 
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+  
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
@@ -209,13 +209,13 @@ public class ThuocGUI extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void addBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtActionPerformed
-        // TODO add your handling code here:
+
         new ThemThuoc().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_addBtActionPerformed
+    }
 
     private void removeBtActionPerformed(java.awt.event.ActionEvent evt) {
         int row = ThuocTable.getSelectedRow();
@@ -228,14 +228,15 @@ public class ThuocGUI extends javax.swing.JFrame {
             if (luaChon == JOptionPane.YES_OPTION) {
                 int id = Integer.parseInt(String.valueOf(ThuocTable.getValueAt(row, 0)));
 
-                // Call the service to "remove" the item
+             
                 boolean success = thuocService.removeThuoc(id);
 
-                // Check if the operation was successful
+              
                 if (success) {
-                    // Update the status in the table model instead of removing the row
+                  
                     DefaultTableModel model = (DefaultTableModel) ThuocTable.getModel();
-                    model.setValueAt("Đã hết thuốc", row, 6); // Assuming column index 6 is `trangThai`
+                    model.setValueAt("Đã hết thuốc", row, 6);
+                    model.setValueAt(0, row, 5);
 
                     JOptionPane.showMessageDialog(this, "Thuốc đã được cập nhật trạng thái.", "Info", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -249,7 +250,7 @@ public class ThuocGUI extends javax.swing.JFrame {
 
 
     private void updateBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtActionPerformed
-        // TODO add your handling code here:
+     
         int row = ThuocTable.getSelectedRow();
         
         if (row == -1){
@@ -262,18 +263,17 @@ public class ThuocGUI extends javax.swing.JFrame {
             this.dispose();           
         }  
         
-    }//GEN-LAST:event_updateBtActionPerformed
+    }
 
     private void exitBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtActionPerformed
-        // TODO add your handling code here:
-       // System.exit(0);
+     
     	TrangChuDangNhapGUI tcdng = new TrangChuDangNhapGUI();
     	tcdng.setVisible(true);
     	dispose();
-    }//GEN-LAST:event_exitBtActionPerformed
+    }
 
     private void searchBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtActionPerformed
-        // TODO add your handling code here:
+       
 
         String searchText = searchField.getText().trim();
         ArrayList<Thuoc> thuocs = new ArrayList<>();       
@@ -285,7 +285,7 @@ public class ThuocGUI extends javax.swing.JFrame {
             defaultTableModel.setRowCount(0);
             setTableData(thuocs);
 
-            // Check if any records were foundtr
+         
             if (!thuocs.isEmpty()) {
                 found = true;
             }
@@ -294,34 +294,26 @@ public class ThuocGUI extends javax.swing.JFrame {
         if (!found) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy loại thuốc!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_searchBtActionPerformed
+    }
 
-    private void trangChuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangChuButtonActionPerformed
-        // TODO add your handling code here:
+    private void trangChuButtonActionPerformed(java.awt.event.ActionEvent evt) {
+     
                 new TrangChuDangNhapGUI().setVisible(true);
 
-    }//GEN-LAST:event_trangChuButtonActionPerformed
+    }
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchFieldActionPerformed
-
+       
+    }
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        // TODO add your handling code here:
+       
         defaultTableModel.setRowCount(0);
         ArrayList<Thuoc> thuocs = thuocService.getAllThuocs();
         setTableData(thuocs);
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    }
+  
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+      
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -338,9 +330,7 @@ public class ThuocGUI extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ThuocGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ThuocGUI().setVisible(true);
@@ -348,7 +338,7 @@ public class ThuocGUI extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+   
     private javax.swing.JTable ThuocTable;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JButton addBt;
@@ -361,5 +351,5 @@ public class ThuocGUI extends javax.swing.JFrame {
     private javax.swing.JTextField searchField;
     private javax.swing.JButton trangChuButton;
     private javax.swing.JButton updateBt;
-    // End of variables declaration//GEN-END:variables
+  
 }

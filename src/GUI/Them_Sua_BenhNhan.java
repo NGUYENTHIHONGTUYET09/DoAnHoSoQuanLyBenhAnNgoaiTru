@@ -32,6 +32,8 @@ import BUS.DanhSachBNBUS;
 import DAO.TinhDAO;
 import DTO.Tinh;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
 import java.util.Date;
 
 public class Them_Sua_BenhNhan extends JFrame {
@@ -92,7 +94,7 @@ public class Them_Sua_BenhNhan extends JFrame {
         Font font_2 = new Font("Arial", Font.BOLD, 15);
 
         JLabel jlabel_header = new JLabel("THÔNG TIN BỆNH NHÂN", SwingConstants.CENTER);
-        jlabel_header.setBorder(new EmptyBorder(10, 10, 10, 10)); // Đặt khoảng cách trên là 10
+        jlabel_header.setBorder(new EmptyBorder(10, 10, 10, 10)); 
 
         jlabel_header.setFont(font_1);
         jlabel_header.setForeground(Color.BLUE);
@@ -111,7 +113,7 @@ public class Them_Sua_BenhNhan extends JFrame {
         }
 
         jlabel_quequan = new JLabel("Quê quán");
-        jlabel_quequan.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_quequan.setBorder(new EmptyBorder(0, 0, 0, 0)); 
         jlabel_quequan.setFont(font_2);
 
         jtextfield_mabn = new JTextField();
@@ -119,41 +121,43 @@ public class Them_Sua_BenhNhan extends JFrame {
         jtextfield_id = new JTextField("Id");
         jtextfield_id.setFont(font_2);
         jlabel_tenbn = new JLabel("Tên bệnh nhân");
-        jlabel_tenbn.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_tenbn.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 
         jlabel_tenbn.setFont(font_2);
 
         jtextfield_tenbn = new JTextField();
         jtextfield_tenbn.setFont(font_2);
         jlabel_sdt = new JLabel("Số điện thoại");
-        jlabel_sdt.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_sdt.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 
         jlabel_sdt.setFont(font_2);
         jtextfield_sdt = new JTextField();
         jtextfield_sdt.setFont(font_2);
 
         jlabel_ngaysinh = new JLabel("Ngày sinh");
-        jlabel_ngaysinh.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_ngaysinh.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 
         jlabel_ngaysinh.setFont(font_2);
         ngaySinhChooser = new JDateChooser();
+        JTextFieldDateEditor editorNgaySinh = (JTextFieldDateEditor) ngaySinhChooser.getDateEditor();
+        editorNgaySinh.setEditable(false);
         ngaySinhChooser.setDateFormatString("yyyy-MM-dd");
 
         jlabel_diachi = new JLabel("Địa chỉ");
-        jlabel_diachi.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_diachi.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 
         jlabel_diachi.setFont(font_2);
         jtextfield_diachi = new JTextField();
         jtextfield_diachi.setFont(font_2);
         jlabel_ghichu = new JLabel("Ghi chú");
-        jlabel_ghichu.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_ghichu.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 
         jlabel_ghichu.setFont(font_2);
         jtextfield_ghichu = new JTextField();
         jtextfield_ghichu.setFont(font_2);
 
         jlabel_gioitinh = new JLabel("Giới tính");
-        jlabel_gioitinh.setBorder(new EmptyBorder(0, 0, 0, 0)); // Đặt khoảng cách trên là 10
+        jlabel_gioitinh.setBorder(new EmptyBorder(0, 0, 0, 0)); 
 
         jlabel_gioitinh = new JLabel("Giới tính:");
         jlabel_gioitinh.setFont(font_2);
@@ -177,23 +181,23 @@ public class Them_Sua_BenhNhan extends JFrame {
         jpanel_info.add(jlabel_ghichu);
         jpanel_info.add(jtextfield_ghichu);
 
-        jpanel_info.setBorder(new EmptyBorder(0, 0, 0, 30)); // Đặt khoảng cách trên là 10
+        jpanel_info.setBorder(new EmptyBorder(0, 0, 0, 30));
 
         jbutton_them = new JButton("Thêm");
-        jbutton_them.setPreferredSize(new Dimension(270, 30)); // Set preferred size for "Lưu" button dài - cao
+        jbutton_them.setPreferredSize(new Dimension(270, 30)); 
         jbutton_them.setFont(font_2);
         //jbutton_them.setBackground(Color.WHITE);
-        jbutton_them.setBackground(new Color(183, 226, 250)); // Đặt màu nền xanh nhạt cho nút "Lưu"
+        jbutton_them.setBackground(new Color(183, 226, 250)); 
 
         jbutton_luu = new JButton("Lưu");
-        jbutton_luu.setPreferredSize(new Dimension(270, 30)); // Set preferred size for "Lưu" button dài - cao
+        jbutton_luu.setPreferredSize(new Dimension(270, 30)); 
         jbutton_luu.setFont(font_2);
         //jbutton_luu.setBackground(Color.WHITE);
-        jbutton_luu.setBackground(new Color(183, 226, 250)); // Đặt màu nền xanh nhạt cho nút "Lưu"
+        jbutton_luu.setBackground(new Color(183, 226, 250)); 
 
         JPanel jpanel_bottom = new JPanel();
-        jpanel_bottom.setBorder(new EmptyBorder(20, 10, 10, 13)); // Đặt khoảng cách trên là 10
-        jpanel_bottom.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0)); // 20 là khoảng cách giữa các component
+        jpanel_bottom.setBorder(new EmptyBorder(20, 10, 10, 13));
+        jpanel_bottom.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0)); 
 
         //	jpanel_bottom.setLayout(new GridLayout(1, 2));
         jpanel_bottom.add(jbutton_them);
@@ -218,7 +222,7 @@ public class Them_Sua_BenhNhan extends JFrame {
 
         ImageIcon hinhanh = new ImageIcon(getClass().getResource("/ICon/iconBenhNhan.png"));
         JLabel imageLabel_hinhanh = new JLabel(hinhanh);
-        imageLabel_hinhanh.setBorder(new EmptyBorder(0, 10, 20, 0)); // Đặt khoảng cách trên là 10
+        imageLabel_hinhanh.setBorder(new EmptyBorder(0, 10, 20, 0)); 
 
         JPanel jPanel_Center = new JPanel();
         jPanel_Center.setLayout(new GridLayout());
@@ -228,8 +232,7 @@ public class Them_Sua_BenhNhan extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(jpanel_label, BorderLayout.NORTH);
         this.add(jPanel_Center, BorderLayout.CENTER);
-        //this.add(jpanel_info, BorderLayout.CENTER);// lát xóa
-
+    
         this.add(jpanel_bottom, BorderLayout.SOUTH);
 
     }
@@ -289,9 +292,9 @@ public class Them_Sua_BenhNhan extends JFrame {
         boolean success = dsbn.addBenhNhan(newBN);
 
         if (success) {
-            // Thêm thông tin của bệnh nhân mới vào bảng với cả hai tham số BenhNhan và Tinh
+           
             qlttbn.insertIntoTable(newBN, tinh);
-            qlttbn.fillData(); // Sau khi thêm thì gọi fetch data lại
+            qlttbn.fillData(); 
             JOptionPane.showMessageDialog(this, "Thêm bệnh nhân thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
          //   dispose(); // Chỉ đóng cửa sổ nếu thêm thành công
         } else {

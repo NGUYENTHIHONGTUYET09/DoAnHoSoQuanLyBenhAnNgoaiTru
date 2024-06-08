@@ -164,7 +164,7 @@ public class QLyBienLaiGUI extends JFrame {
 			}
 
 			private void handleTextChange() {
-				// Xử lý khi văn bản trong JTextField thay đổi
+			
 				timKiem();
 			}
 		});
@@ -197,9 +197,9 @@ public class QLyBienLaiGUI extends JFrame {
 			}
 		});
 
-		// Add left and right components to jpanel_timkiem
-		jpanel_timkiem.add(leftPanel, BorderLayout.WEST); // Left-aligned components
-		jpanel_timkiem.add(jbutton_trangchu, BorderLayout.EAST); // Right-aligned button
+
+		jpanel_timkiem.add(leftPanel, BorderLayout.WEST); 
+		jpanel_timkiem.add(jbutton_trangchu, BorderLayout.EAST);
 
 		jbutton_timkiem.addActionListener(new ActionListener() {
 			@Override

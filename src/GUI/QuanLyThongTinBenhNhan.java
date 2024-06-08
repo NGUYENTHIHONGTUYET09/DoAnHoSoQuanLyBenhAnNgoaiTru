@@ -94,11 +94,9 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         dsbn = new DanhSachBNBUS(this);
         tinhdao = new TinhDAO();
         init();
-        // hideTableData();
+
         fillData();
 
-//        tsbn = new Them_Sua_BenhNhan(this); // Initialize tsbn here
-//        tsbn.setVisible(false);
         setVisible(true);
     }
 
@@ -129,7 +127,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
     public void init() {
         setTitle("Quản lý thông tin bệnh nhân");
 
-        this.setSize(900, 500);
+        this.setSize(1200, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -174,7 +172,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
             }
 
             private void handleTextChange() {
-                // Xử lý khi văn bản trong JTextField thay đổi
+              
                 timKiem();
             }
         });
@@ -268,13 +266,13 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         jitem_openfile.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                jitem_openfile.setForeground(Color.CYAN); // Thay đổi màu chữ khi chuột vào
+                jitem_openfile.setForeground(Color.CYAN); 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jitem_openfile.setForeground(UIManager.getColor("Menu.foreground")); // Khôi phục màu chữ khi chuột rời
-                // đi
+                jitem_openfile.setForeground(UIManager.getColor("Menu.foreground")); 
+       
             }
         });
 
@@ -292,12 +290,12 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         jitem_savefile.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                jitem_savefile.setForeground(Color.orange); // Thay đổi màu chữ khi chuột vào
+                jitem_savefile.setForeground(Color.orange);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jitem_savefile.setForeground(UIManager.getColor("Menu.foreground")); // Khôi phục màu chữ khi chuột rời
+                jitem_savefile.setForeground(UIManager.getColor("Menu.foreground")); 
        
             }
         });
@@ -318,31 +316,16 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         jitem_xuatds.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                jitem_xuatds.setForeground(Color.RED); // Thay đổi màu chữ khi chuột vào
+                jitem_xuatds.setForeground(Color.RED); 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                jitem_xuatds.setForeground(UIManager.getColor("Menu.foreground")); // Khôi phục màu chữ khi chuột rời đi
+                jitem_xuatds.setForeground(UIManager.getColor("Menu.foreground")); 
             }
         });
 
-        JMenuItem jitem_thonngke = new JMenuItem("Thống kê", KeyEvent.VK_A);
-        jitem_thonngke.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.ALT_DOWN_MASK));
-//		ImageIcon iconOpen = new ImageIcon(getClass().getResource("/ICon/iconOpenFile.png"));
-//		jitem_openfile.setIcon(iconOpen);
-        jitem_thonngke.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new ThongKeBenhNhan(dsbn).setVisible(true);
-                } catch (Exception ex) {
-                    // TODO: handle exception
-                    ex.printStackTrace();
-                }
-                dispose();
-            }
-        });
+
 
         jmenu.add(jitem_openfile);
         jmenu.addSeparator();
@@ -350,7 +333,6 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         jmenu.addSeparator();
         jmenu.add(jitem_xuatds);
         jmenu.addSeparator();
-       // jmenu.add(jitem_thonngke);
 
         jmenubar.add(jmenu);
 
@@ -566,19 +548,19 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
 
     public void thucHienTim() {
         resetTable();
-        int queQuan = this.jComboBox_QueQuan.getSelectedIndex(); // số quê quán người dùng đã chọn
+        int queQuan = this.jComboBox_QueQuan.getSelectedIndex();
         DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
-        ArrayList<BenhNhan> dsBenhNhanHienThi = new ArrayList<>(); // Danh sách bệnh nhân cần hiển thị
+        ArrayList<BenhNhan> dsBenhNhanHienThi = new ArrayList<>();
 
         if (queQuan >= 0) {
-            Tinh tinhDaChon = tinhdao.getTinhById(queQuan); // trả về vị trí tỉnh và tên
+            Tinh tinhDaChon = tinhdao.getTinhById(queQuan); 
             System.out.println("Tên tỉnh: " + tinhDaChon);
 
             for (BenhNhan bn : dsbn.getDsbn()) {
                 Tinh tinh = tinhdao.getTinhById(bn.getQueQuan());
                 String tenTinh = tinh.getTenTinh();
                 if (tenTinh.equals(tinhDaChon.getTenTinh())) {
-                    dsBenhNhanHienThi.add(bn); // Thêm bệnh nhân vào danh sách hiển thị
+                    dsBenhNhanHienThi.add(bn); 
                 }
             }
         }

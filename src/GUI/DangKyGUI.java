@@ -361,20 +361,6 @@ public class DangKyGUI extends JFrame {
 //		}
 //	}
 //
-//	private String getSelectedRole() {
-//		if (jRadioButton_BS.isSelected()) {
-//			return "Bác Sĩ";
-//		} else if (jRadioButton_NVTN.isSelected()) {
-//			return "NV Tiếp Nhận";
-//		} else if (jRadioButton_NVTT.isSelected()) {
-//			return "NV Thanh Toán";
-//		} else if (jRadioButton_Admin.isSelected()) {
-//			return "Admin";
-//		} else if (jRadioButton_QuanLyKho.isSelected()) {
-//			return "Quản Lý Kho";
-//		}
-//		return null;
-//	}
 
     public void sendMail(String email, String message) throws AddressException, MessagingException {
         String mailFrom = "viptt2004@gmail.com";
@@ -595,7 +581,6 @@ public class DangKyGUI extends JFrame {
 	            ex.printStackTrace();
 	        }
 	       
-
 	    }
 	  
 }

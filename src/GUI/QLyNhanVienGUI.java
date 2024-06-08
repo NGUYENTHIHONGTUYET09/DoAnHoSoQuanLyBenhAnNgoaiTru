@@ -42,10 +42,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author HUNG
- */
 public class QLyNhanVienGUI extends JFrame implements TableInterface {
 
     public DSNhanVienBUS dsnv;
@@ -178,9 +174,9 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
             }
         });
 
-        // Add left and right components to jpanel_timkiem
-        jpanel_timkiem.add(leftPanel, BorderLayout.WEST); // Left-aligned components
-        jpanel_timkiem.add(jbutton_trangchu, BorderLayout.EAST); // Right-aligned button
+       
+        jpanel_timkiem.add(leftPanel, BorderLayout.WEST); 
+        jpanel_timkiem.add(jbutton_trangchu, BorderLayout.EAST);
 
         jbutton_timkiem.addActionListener(new ActionListener() {
             @Override
@@ -221,7 +217,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
         jscrollpane_table.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         jbutton_them = new JButton("Thêm");
-      //  jbutton_them.setBackground(Color.WHITE);
+   
         jbutton_them.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -399,7 +395,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
 
     public void switchToAddtNVGUI() {
         tsnv.setVisible(true);
-        //setVisible(false);
+    
     }
 
     public void switchToAddTrangChuAdmin() {
@@ -479,7 +475,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
     }
 
     public NhanVien getNhanVienDataById(String maNhanVien) {
-        // Gọi phương thức từ DanhSachBNBUS hoặc trực tiếp truy vấn cơ sở dữ liệu
+     
         return dsnv.getNhanVienByMaNV(maNhanVien);
     }
 

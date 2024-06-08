@@ -1,7 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+
 package GUI;
 
 import BUS.BenhNhanService;
@@ -26,11 +24,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-/**
-/**
- *
- * @author phamngochoang
- */
+
 public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
     PhieuKhamBenhService phieuKhamBenhService;
     PhieuKhamBenh phieuKhamBenh;
@@ -54,9 +48,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
     
     ThuocService thuocService;
     
-    /**
-     * Creates new form KeToa
-     */
+ 
     public KeToa(int pkbID) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -382,15 +374,14 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         );
 
         pack();
-    }// </editor-fold>//GEN-END:i
+    }
 
     private void backPKBBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backPKBBtActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_backPKBBtActionPerformed
 
+        this.dispose();
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       
         defaultTableModel = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -404,7 +395,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         ctToaThuocTable.setModel(defaultTableModel);
 
         new CreateDonThuoc(this).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     private void addPKBBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPKBBtActionPerformed
        try {
@@ -421,7 +412,6 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
 
             phieuKhamBenhService.suaPhieuKhamBenh(phieuKhamBenh);
 
-            // Commit the transaction if using transactions
 
 //            new QuanLyThongTinKhamBenh().setVisible(true);
 //            this.dispose();
@@ -432,11 +422,10 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
             pkbIDTextField.setText(String.valueOf(phieuKhamBenh.getId()));
             
         } catch (NumberFormatException ex) {
-            // Print the stack trace for debugging
-            // Handle the exception (e.g., show an error message)
+       
             
         }
-    }//GEN-LAST:event_addPKBBtActionPerformed
+    }
 
     private void taoToaThuocBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taoToaThuocBTActionPerformed
         // TODO add your handling code here:
@@ -471,10 +460,10 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         int toaThuocID = toaThuoc.getId();
 
         toaThuocIDTextField.setText(String.valueOf(toaThuocID));
-    }//GEN-LAST:event_taoToaThuocBTActionPerformed
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       
         DefaultTableModel ctDonThuocModel = (DefaultTableModel)ctToaThuocTable.getModel();
 
         if (ctDonThuocModel.getRowCount() == 0){
@@ -503,12 +492,12 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         tongHoaDonTextField.setText(String.valueOf(tongTien));
 
         toaThuocService.updateTongTien(maToa, tongTien);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
  
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+   
     private javax.swing.JComboBox<String> PKComboBox;
     private javax.swing.JButton addPKBBt;
     private javax.swing.JButton backPKBBt;
@@ -538,7 +527,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
     private javax.swing.JTextField toaThuocIDTextField;
     private javax.swing.JLabel tongHoaDonLB;
     private javax.swing.JTextField tongHoaDonTextField;
-    // End of variables declaration//GEN-END:variables
+
     private List<CTDonThuoc> selectedListThuoc;
     @Override
     public void addListThuoc(List<CTDonThuoc> listThuoc) {

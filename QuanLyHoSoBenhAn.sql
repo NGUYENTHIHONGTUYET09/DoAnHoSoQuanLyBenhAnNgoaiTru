@@ -1,8 +1,7 @@
 ﻿CREATE DATABASE QuanLyThongTinBenhAn
 go
 
-select * from NHANVIEN
-
+drop DATABASE QuanLyThongTinBenhAn
 -- Sài Id cho việc tác động lên DB
 -- Sài Mã bệnh nhân cho việc xuất lên UI
 
@@ -30,7 +29,6 @@ CREATE TABLE BenhNhan (
 go
 alter table BenhNhan add constraint FK_QueQuan 
 Foreign key (queQuan) references Tinh(id);
-
 
 go
 CREATE TABLE TaiKhoan(
@@ -231,7 +229,6 @@ VALUES
     (N'Lê Văn C', '0965432109', '1995-03-25', N'93 Bình Tây', N'Nam', 1, NULL),
 	(N'Tường Vi', '0764003108', '2004-02-21', N'93 Bình Tây', N'Nữ', 3, NULL);
 
-	select * from taikhoan
 
 INSERT INTO NhanVien (HOTEN, NGAYSINH, DIACHI, GIOITINH, NGAYVL, VAITRO,TRANGTHAI)
 VALUES
@@ -308,6 +305,7 @@ VALUES
 	(3, 4,400000,4);
 
 
+
 		INSERT INTO BIENLAI (MANV_TT, MATOA, TONGTIENKHAM)
 VALUES
     (5,1,900000),
@@ -322,8 +320,6 @@ VALUES
 	(5,3,'2022-12-21',700000),
 	(5,4,'2021-12-21',700000);
 
-	select * from bienlai
-	select * from taikhoan
 	
 		INSERT INTO CTDONTHUOC (MATHUOC, MATOA,SOLUONG,GHICHU)
 VALUES
@@ -342,13 +338,11 @@ VALUES
 	(12, 4,10,N'Chiều 1 viên'),
 	(13, 4,10,N'Chiều 1 viên');
 
-
-
 		
 		
 	/***************************************TRIGGER****************************************/
 
-
+	
 CREATE TRIGGER trg_XoaNhanVien
 ON NHANVIEN
 INSTEAD OF DELETE
@@ -383,44 +377,35 @@ BEGIN
 END;
 GO
 
-
-
 CREATE TRIGGER trg_XoaThuoc
 ON THUOC
 INSTEAD OF DELETE
 AS
 BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-            DECLARE @ID INT;
-            SELECT @ID = ID FROM DELETED;
+	BEGIN TRY
+		BEGIN TRANSACTION;
+			DECLARE @ID INT;
+			SELECT @ID = ID FROM DELETED;
 
-            -- Check if the record exists in the THUOC table
-            IF EXISTS (SELECT * FROM THUOC WHERE ID = @ID)
-            BEGIN
-                -- Update the TRANGTHAI field
-                UPDATE THUOC
-                SET TRANGTHAI = N'Thuốc không có sẵn'
-                WHERE ID = @ID;
-            END
-            ELSE
-            BEGIN
-                -- If the record does not exist, throw an error
-                THROW 51001, N'Không tìm thấy thuốc', 1;
-            END
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        -- Rollback the transaction in case of an error
-        IF @@TRANCOUNT > 0
-            ROLLBACK TRANSACTION;
-        -- Print the error message
-        PRINT N'Lỗi xảy ra: ' + ERROR_MESSAGE();
-    END CATCH
+			IF EXISTS (SELECT * FROM THUOC WHERE ID = @ID)
+			BEGIN
+				UPDATE THUOC
+				SET TRANGTHAI = N'Thuốc không có sẵn'
+				WHERE ID = @ID;
+			END
+			ELSE
+			BEGIN
+				THROW 51001, N'Không tìm thấy thuốc', 1;
+			END
+		COMMIT TRANSACTION;
+	END TRY
+	BEGIN CATCH
+		IF @@TRANCOUNT > 0
+			ROLLBACK TRANSACTION
+		PRINT N'Lỗi xảy ra: ' + ERROR_MESSAGE();
+	END CATCH
 END;
 GO
-
-
 
 CREATE TRIGGER trg_UpdateTrangThaiOnInsertOrUpdate
 ON THUOC
@@ -505,51 +490,8 @@ END;
 GO
 
 
-IF OBJECT_ID ('trg_UpdateTrangThaiInsteadOfDelete', 'TR') IS NOT NULL
-BEGIN
-    DROP TRIGGER trg_UpdateTrangThaiInsteadOfDelete;
-END;
 
-delete from thuoc where id = 18
-select * from thuoc
-
-
--- Xóa trigger nếu đã tồn tại
-IF OBJECT_ID ('trg_UpdateTrangThaiInsteadOfDelete', 'TR') IS NOT NULL
-BEGIN
-    DROP TRIGGER trg_UpdateSoLuongTonInsteadOfDelete;
-END;
-GO
-
--- Tạo lại trigger để cập nhật trạng thái thay vì xóa
-CREATE TRIGGER trg_UpdateSoLuongTonInsteadOfDelete
-ON THUOC
-INSTEAD OF DELETE
-AS 
-BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-
-        -- Cập nhật số lượng tồn của các thuốc bị yêu cầu xóa thành 0
-        UPDATE THUOC
-        SET SOLUONGTON = 0
-        WHERE id IN (SELECT id FROM DELETED);
-
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        IF @@TRANCOUNT > 0
-            ROLLBACK TRANSACTION;
-
-        PRINT N'Lỗi xảy ra: ' + ERROR_MESSAGE();
-    END CATCH
-END;
-GO
-
-
-
-
-	--tính tổng tiền thuốc của một toa thuốc.
+--tính tổng tiền thuốc của một toa thuốc.
 	
 CREATE TRIGGER trg_CalculateTotalAmount
 ON CTDONTHUOC
@@ -597,8 +539,7 @@ BEGIN
     WHERE MATOA IN (SELECT MATOA FROM inserted);
 END;
 GO
-----------------------************************-----------------------
-select * from taikhoan
+
 
 --3. Vaitro trong nhân viên chỉ nhận 5 giá trị 
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_VAITRO CHECK (VAITRO IN (N'Bác Sĩ', N'NV Thanh Toán', N'NV Tiếp Nhận',N'Admin',N'Quản lý kho'));
@@ -890,7 +831,7 @@ BEGIN
 END;
 go
 
-select * from TaiKhoan
+
 --NGAY LAP TOA THUOC > HSD CỦA THUỐC 
 CREATE OR ALTER TRIGGER TRG_HANSD_THUOC
 ON CTDONTHUOC
@@ -1922,6 +1863,9 @@ select * from nhanvien
 select * from taikhoan
 select * from THUOC
 
+update TaiKhoan set HOTEN = N'Test deadlock 1' where id = 1;
+
+update NhanVien set HOTEN = N'Test deadlock 2' where id = 1;
 
 
 /*****************Lost update************************/
@@ -2022,7 +1966,12 @@ PRINT N'Số lượng tồn sau khi cập nhật: ' + CAST(@SoLuong AS NVARCHAR(
     END
 END;
 
-----------------------------------------------------
+select * from toathuoc
+delete ToaThuoc where id = 7
+
+select * from taikhoan
+select * from toathuoc
+-----------------------------------------------------------------------------------------
 
 /****************dirty read*******************/
 CREATE PROCEDURE sp_CapNhatGiaThuoc
@@ -2057,6 +2006,12 @@ BEGIN
 END;
 
 
+select * from bienlai
+select * from taikhoan
+select * from NHANVIEN
+delete taikhoan where id  = 33
+
+update thuoc set TrANGTHAI = N'Còn thuốc'
 
 
 -----------------NON----------------
@@ -2129,6 +2084,27 @@ BEGIN
         WHERE id = @MATHUOC;
     END
 END;
+
+
+INSERT INTO BenhNhan (tenBN, sdt, ngaySinh, diaChi, gioiTinh, queQuan, ghichu)
+VALUES
+    (N'Nguyễn Tuấn Hải ', '0987654321', '1990-05-15', N'916 Hậu Giang', N'Nam', 1, NULL),
+    (N'Trần Thị Huệ', '0976543210', '1992-10-20', N'55 Quang Trung ', N'Nữ', 2, NULL);
+
+	select * from benhnhan
+
+	update thuoc set soluongton = 50;
+
+	update thuoc set trangthai = N'Còn thuốc'
+
+	select * from taikhoan
+
+	
+INSERT INTO NhanVien (HOTEN, NGAYSINH, DIACHI, GIOITINH, NGAYVL, VAITRO,TRANGTHAI)
+VALUES
+    (N'Phan Thi Tường Vi', '2004-04-21', N'916 Hậu Giang', N'Nữ', '2024-02-21', N'NV Thanh Toán',N'Đang tồn tại');
+
+	select * from nhanvien
 
 
 	CREATE PROCEDURE sp_CapNhatSLT

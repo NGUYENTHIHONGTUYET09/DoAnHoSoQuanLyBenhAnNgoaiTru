@@ -27,6 +27,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JTextFieldDateEditor;
 /**
  *
  * @author phamngochoang
@@ -107,6 +109,10 @@ public class ThemPKB extends javax.swing.JFrame {
     private void initComponents() {
 
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        JTextFieldDateEditor editorNgayTao = (JTextFieldDateEditor) jDateChooser1.getDateEditor();
+        editorNgayTao.setEditable(false);
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        
         maPKLb = new javax.swing.JLabel();
         maBSCb = new javax.swing.JComboBox<>();
         PKComboBox = new javax.swing.JComboBox<>();
@@ -115,7 +121,7 @@ public class ThemPKB extends javax.swing.JFrame {
         maBSLb = new javax.swing.JLabel();
         maBNLb = new javax.swing.JLabel();
         ngayTaoLb = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+//        jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         inPKB = new javax.swing.JButton();
@@ -141,8 +147,8 @@ public class ThemPKB extends javax.swing.JFrame {
 
         ngayTaoLb.setText("Ngày tạo");
 
-        jTextField1.setEditable(false);
-        jTextField1.setEnabled(false);
+//        jTextField1.setEditable(false);
+//        jTextField1.setEnabled(false);
 
         jButton1.setText("Thêm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +216,7 @@ public class ThemPKB extends javax.swing.JFrame {
                                         .addComponent(jLabel2))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+//                                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(maBSCb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addComponent(sdtTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,7 +249,7 @@ public class ThemPKB extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(maKBLb))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -397,7 +403,7 @@ public class ThemPKB extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
+//    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel maBNLb;
     private javax.swing.JTextField maBNTextField;
     private javax.swing.JComboBox<String> maBSCb;
