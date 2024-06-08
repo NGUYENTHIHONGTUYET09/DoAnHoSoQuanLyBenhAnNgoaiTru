@@ -13,10 +13,9 @@ public class BenhNhan implements Serializable {
     private String gioiTinh;
     private int queQuan; // Thay đổi từ String sang int để lưu trữ ID của tỉnh
     private String ghiChu;
-    private int soLuong;  // New field for grouping
+    private int soLuong;
 
-    public BenhNhan() {
-    }
+    public BenhNhan() {}
 
     public BenhNhan(String tenBN, String sdt, Date ngaySinh, String diaChi, int queQuan, String gioiTinh, String ghiChu) {
         this.tenBN = tenBN;
@@ -111,9 +110,17 @@ public class BenhNhan implements Serializable {
 
     @Override
     public String toString() {
-        return "BenhNhan{" + "id=" + id + ", maBN=" + maBN + ", tenBN=" + tenBN + ", sdt=" + sdt + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", gioiTinh=" + gioiTinh + ", queQuan=" + queQuan + ", ghiChu=" + ghiChu + ", soLuong=" + soLuong + '}';
+        return "BenhNhan{" +
+                "id=" + id +
+                ", maBN='" + maBN + '\'' +
+                ", tenBN='" + tenBN + '\'' +
+                ", sdt='" + sdt + '\'' +
+                ", ngaySinh=" + ngaySinh +
+                ", diaChi='" + diaChi + '\'' +
+                ", gioiTinh='" + gioiTinh + '\'' +
+                ", queQuan=" + queQuan +
+                ", ghiChu='" + ghiChu + '\'' +
+                ", soLuong=" + soLuong +
+                '}';
     }
-    
-    
-    
 }

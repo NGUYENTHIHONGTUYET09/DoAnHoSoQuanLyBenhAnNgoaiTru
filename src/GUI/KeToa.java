@@ -67,7 +67,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         toaThuoc = new ToaThuoc();
         toaThuocService = new ToaThuocService(); 
         
-        
+        cTDonThuoc = new CTDonThuoc();
         cTDonThuocService = new CTDonThuocService();
         
         thuocService = new ThuocService();
@@ -80,7 +80,10 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         int maBS = phieuKhamBenh.getMABS();
         System.out.println(maBS);
         
+        benhNhanService = new BenhNhanService();
         int maBN = phieuKhamBenh.getMABN();
+        benhNhan = benhNhanService.getBenhNhanByID(maBN);
+        String tenBN = benhNhan.getTenBN();
         
         int maPK = phieuKhamBenh.getMAPK();
         PhongKham phongKham = phongKhamService.getPhongKhamByID(maPK);
@@ -102,9 +105,9 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
             maBSCb.addItem(String.valueOf(bacSiIDs[i]));
         }
 
-        maBNComboBox.addItem(String.valueOf(maBN));       
+        maBNTextField.setText(String.valueOf(maBN));       
 //        maBNComboBox.setSelectedItem(phieuKhamBenh.getMABN());
-
+        tenBNTextField.setText(tenBN);
         PKComboBox.addItem(tenPK);
 //        PKComboBox.setSelectedItem(phieuKhamBenh.getMAPK());
 
@@ -125,7 +128,6 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         maPKLb = new javax.swing.JLabel();
         maBSCb = new javax.swing.JComboBox<>();
-        maBNComboBox = new javax.swing.JComboBox<>();
         PKComboBox = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -148,6 +150,9 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         jButton2 = new javax.swing.JButton();
         toaThuocID = new javax.swing.JLabel();
         toaThuocIDTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tenBNTextField = new javax.swing.JTextField();
+        maBNTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,13 +167,11 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         jDateChooser1.setBackground(new java.awt.Color(204, 204, 204));
         jDateChooser1.setEnabled(false);
 
-        maPKLb.setText("Tên phòng khám");
-
-        maBNComboBox.setBackground(new java.awt.Color(204, 204, 204));
+        maPKLb.setText("Mã PK");
 
         PKComboBox.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton1.setText("Thêm chi tiết đơn thuốc");
+        jButton1.setText("Thêm Toa Thuốc");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -177,13 +180,13 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
 
         ctToaThuocTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null,null},
+                {null, null, null, null,null},
+                {null, null, null, null,null},
+                {null, null, null, null,null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+            		"STT", "Ma Thuoc", "Ten Thuoc", "So luong", "Ghi Chu"
             }
         ));
         jScrollPane2.setViewportView(ctToaThuocTable);
@@ -233,86 +236,96 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-                
-                
             }
         });
 
         toaThuocID.setText("Mã Toa");
 
+        jLabel2.setText("Tên bệnh nhân");
+
+        tenBNTextField.setEditable(false);
+        tenBNTextField.setBackground(new java.awt.Color(204, 204, 204));
+
+        maBNTextField.setEditable(false);
+        maBNTextField.setBackground(new java.awt.Color(204, 204, 204));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(237, 237, 237))
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
+                                    .addGap(108, 108, 108)
+                                    .addComponent(maPKLb))
+                                .addComponent(ngayTaoLb, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(PKComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(taoToaThuocBT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(chanDoanLb)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(pknIDLB)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(pkbIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(tongHoaDonLB)
                                     .addGap(18, 18, 18)
                                     .addComponent(tongHoaDonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(toaThuocID)
                                         .addComponent(jButton1))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(toaThuocIDTextField)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)))
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(backPKBBt, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(maPKLb)
-                                            .addComponent(maBNLb)
-                                            .addComponent(maBSLb)
-                                            .addComponent(maKBLb)))
-                                    .addComponent(ngayTaoLb, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(maBSCb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(maBNComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(PKComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(chanDoanLb)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 24, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(backPKBBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addPKBBt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(maBNLb)
+                            .addComponent(maBSLb)
+                            .addComponent(maKBLb)
+                            .addComponent(jLabel2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(pknIDLB)
                                 .addGap(18, 18, 18)
-                                .addComponent(pkbIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(addPKBBt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(taoToaThuocBT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(24, 24, 24))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(237, 237, 237))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(maBSCb, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tenBNTextField)
+                                    .addComponent(maBNTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))))))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(maKBLb))
@@ -322,8 +335,12 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
                     .addComponent(maBSLb))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maBNComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maBNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(maBNLb))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tenBNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PKComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,46 +351,42 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(addPKBBt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(pkbIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pknIDLB))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(taoToaThuocBT)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(toaThuocIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(toaThuocID))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tongHoaDonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tongHoaDonLB))
-                                .addGap(15, 15, 15)
-                                .addComponent(backPKBBt))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chanDoanLb)))
                     .addComponent(ngayTaoLb))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addPKBBt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pkbIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pknIDLB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(taoToaThuocBT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(toaThuocIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(toaThuocID))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tongHoaDonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tongHoaDonLB))
+                .addGap(15, 15, 15)
+                .addComponent(backPKBBt)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:i
 
     private void backPKBBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backPKBBtActionPerformed
         // TODO add your handling code here:
-       QuanLyThongTinKhamBenh qlttkb = new QuanLyThongTinKhamBenh();
-       qlttkb.setVisible(true);
-       dispose();
-       
+        this.dispose();
     }//GEN-LAST:event_backPKBBtActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -397,7 +410,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
        try {
             
             phieuKhamBenh.setMABS(Integer.parseInt(maBSCb.getSelectedItem().toString()));
-            phieuKhamBenh.setMABN(Integer.parseInt(maBNComboBox.getSelectedItem().toString()));
+            phieuKhamBenh.setMABN(Integer.parseInt(maBNTextField.getText()));
 //            phieuKhamBenh.setMAPK(Integer.parseInt(PKComboBox.getSelectedItem().toString()));
 
             Date ngayTao = jDateChooser1.getDate();
@@ -431,7 +444,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         toaThuocService = new ToaThuocService();
         
         int maBs = Integer.parseInt(maBSCb.getSelectedItem().toString());
-        int maBn = Integer.parseInt(maBNComboBox.getSelectedItem().toString());
+        int maBn = Integer.parseInt(maBNTextField.getText());
         int maPKB = Integer.parseInt(pkbIDTextField.getText());
 
         //        double tongTien = Double.parseDouble(tongHoaDonTextField.getText());
@@ -448,11 +461,9 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         int rs = toaThuocService.addToaThuoc(toaThuoc);
         if (rs != 0){
             System.out.println("ToaThuoc added successfully.");
-            JOptionPane.showMessageDialog(this, "Thêm thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
         }
         else
-        { 
+        {
             System.out.println("ToaThuoc added fail.");
         }
 
@@ -472,7 +483,6 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         else {
             for (int i = 0; i < ctDonThuocModel.getRowCount(); i++)
             {
-                cTDonThuoc = new CTDonThuoc();
                 int maThuoc = Integer.parseInt(ctDonThuocModel.getValueAt(i, 1).toString());
                 cTDonThuoc.setMaThuoc(maThuoc);
 
@@ -482,11 +492,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
                 int soLuong = Integer.parseInt(ctDonThuocModel.getValueAt(i, 3).toString());
                 cTDonThuoc.setSoLuong(soLuong);
 
-                cTDonThuoc.setGhiChu(String.valueOf(ctDonThuocModel.getValueAt(i, 4)));
                 cTDonThuocService.addCTDT(cTDonThuoc);
-           //     cTDonThuocService.addCTDT_PROC(cTDonThuoc);
-                JOptionPane.showMessageDialog(this, "Thêm thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-
                 System.out.println("Add 1 to CTDonThuoc");
             }
         }
@@ -497,44 +503,10 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
         tongHoaDonTextField.setText(String.valueOf(tongTien));
 
         toaThuocService.updateTongTien(maToa, tongTien);
-        
-        
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(KeToa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(KeToa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(KeToa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(KeToa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new KeToa().setVisible(true);
-//            }
-//        });
-//    }
+ 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> PKComboBox;
@@ -546,12 +518,13 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JComboBox<String> maBNComboBox;
     private javax.swing.JLabel maBNLb;
+    private javax.swing.JTextField maBNTextField;
     private javax.swing.JComboBox<String> maBSCb;
     private javax.swing.JLabel maBSLb;
     private javax.swing.JLabel maKBLb;
@@ -560,6 +533,7 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
     private javax.swing.JTextField pkbIDTextField;
     private javax.swing.JLabel pknIDLB;
     private javax.swing.JButton taoToaThuocBT;
+    private javax.swing.JTextField tenBNTextField;
     private javax.swing.JLabel toaThuocID;
     private javax.swing.JTextField toaThuocIDTextField;
     private javax.swing.JLabel tongHoaDonLB;
@@ -583,4 +557,6 @@ public class KeToa extends javax.swing.JFrame implements AddListThuocInterface{
 	        });
 	    }
     }
+
+
 }

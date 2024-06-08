@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JFrame;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.JButton;
@@ -8,9 +9,10 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,12 +24,13 @@ import DTO.Thuoc;
 import custom.ComboBoxFilterDecorator;
 import custom.CustomComboRenderer;
 import interfaces.AddListThuocInterface;
+import interfaces.NewTableInterface;
 
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-public class CreateDonThuoc extends JFrame {
+public class CreateDonThuoc extends JFrame implements NewTableInterface{
 
     private static final long serialVersionUID = 1L;
     private JTable table;
@@ -49,10 +52,7 @@ public class CreateDonThuoc extends JFrame {
 
         this.addlistThuocInterface = addlistThuocInterface;
         thuocService = new ThuocService();
-        listThuoc = thuocService.getAllThuocs()
-                                .stream()
-                                .filter(thuoc -> thuoc.getSoLuongTon() > 0)
-                                .collect(Collectors.toList());
+        listThuoc = thuocService.getAllThuocs();
         initView();
     }
 
@@ -100,20 +100,20 @@ public class CreateDonThuoc extends JFrame {
         cbThuoc.setBounds(79, 11, 335, 22);
 
         ComboBoxFilterDecorator<Thuoc> decorate = ComboBoxFilterDecorator.decorate(cbThuoc,
-                CustomComboRenderer::getThuocDisplayText, this::thuocFilter);
+                CustomComboRenderer::getThuocDisplayText, this::thuocFilter,this);
 
         cbThuoc.setRenderer(new CustomComboRenderer(decorate.getFilterTextSupplier()));
-        cbThuoc.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedThuoc = (Thuoc) cbThuoc.getSelectedItem();
-                if (selectedThuoc != null) {
-                    listCTDonThuoc.add(new CTDonThuoc(selectedThuoc.getId(), selectedThuoc.getTenThuoc()));
-                    resetTable();
-                }
-            }
-        });
+//        cbThuoc.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            
+//                selectedThuoc = (Thuoc) cbThuoc.getSelectedItem();
+//                listCTDonThuoc.add(new CTDonThuoc(selectedThuoc.getId(), selectedThuoc.getTenThuoc()));
+//                resetTable();
+//            }
+//        });
+       
 
         getContentPane().add(cbThuoc);
         table.getColumnModel().getColumn(0).setResizable(false);
@@ -173,7 +173,7 @@ public class CreateDonThuoc extends JFrame {
                 }
             }
         });
-
+        
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,19 +188,27 @@ public class CreateDonThuoc extends JFrame {
             addlistThuocInterface.addListThuoc(listCTDonThuoc);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Không đủ số lượng thuốc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Khong du so luong thuoc", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
     }
-
-    boolean checkValid(List<CTDonThuoc> listDT) {
-        for (Thuoc thuoc : listThuoc) {
-            for (CTDonThuoc thuocKe : listCTDonThuoc) {
-                if (thuocKe.getMaThuoc() == thuoc.getId() && thuocKe.getSoLuong() > thuoc.getSoLuongTon()) {
+    
+    boolean checkValid(List<CTDonThuoc> listDT){
+        for(Thuoc thuoc : listThuoc){
+            for(CTDonThuoc thuocKe : listCTDonThuoc){
+                if(thuocKe.getMaThuoc() == thuoc.getId() && thuocKe.getSoLuong() > thuoc.getSoLuongTon()){
                     return false;
                 }
             }
         }
         return true;
     }
+
+
+	@Override
+	public void addThuocToCreateDoNThuoc(Thuoc thuoc) {
+		listCTDonThuoc.add(new CTDonThuoc(thuoc.getId(),thuoc.getTenThuoc()));
+		listCTDonThuoc.forEach(t -> System.out.println(t.toString()));
+        resetTable();
+	}
 }

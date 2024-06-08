@@ -73,4 +73,10 @@ public class CTDonThuoc {
     public void setTenThuoc(String tenThuoc) {
         this.tenThuoc = tenThuoc;
     }
+
+	@Override
+	public String toString() {
+		return "CTDonThuoc [maThuoc=" + maThuoc + ", maToa=" + maToa + ", soLuong=" + soLuong + ", ghiChu=" + ghiChu
+				+ ", tenThuoc=" + tenThuoc + "]";
+	}
 }

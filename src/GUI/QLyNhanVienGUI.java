@@ -102,7 +102,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
     public void init() {
         setTitle("Quản lý thông tin nhân viên");
 
-        this.setSize(800, 400);
+        this.setSize(1200, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -201,42 +201,8 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
             }
         };
 
-        JMenuBar jmenubar = new JMenuBar();
-        JMenu jmenu = new JMenu("Menu");
-        JMenuItem jitem_openfile = new JMenuItem("Open File😊");
-        jitem_openfile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                thucHienOpenFile();
-            }
-        });
-        JMenuItem jitem_savefile = new JMenuItem("Save File😊");
-        jitem_savefile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                thucHienSaveFile();
-            }
-        });
-        JMenuItem jitem_xuatds = new JMenuItem("Xuất Danh Sách😊");
-        jitem_xuatds.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<NhanVien> danhSachNhanVien = dsnv.getDSFromDB();
-
-            }
-
-        });
-
-        jmenu.add(jitem_openfile);
-        jmenu.add(jitem_savefile);
-        jmenu.add(jitem_xuatds);
-
-        jmenubar.add(jmenu);
-
-        JPanel jpanel_menu = new JPanel();
-        jpanel_menu.setLayout(new BorderLayout());
-        jpanel_menu.add(jmenubar, BorderLayout.NORTH);
-        jpanel_menu.add(jpanel_header, BorderLayout.CENTER);
+     
+    
 
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
@@ -302,7 +268,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
         jpanel_button.add(jbutton_thoat);
 
         this.setLayout(new BorderLayout());
-        this.add(jpanel_menu, BorderLayout.NORTH);
+        this.add(jpanel_header, BorderLayout.NORTH);
         this.add(jscrollpane_table, BorderLayout.CENTER);
         this.add(jpanel_button, BorderLayout.SOUTH);
     }
@@ -358,6 +324,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
         int selectedRow = jtable_table.getSelectedRow();
 
         if (selectedRow != -1 && selectedRow < modelTable.getRowCount()) {
+            int ID = Integer.parseInt(modelTable.getValueAt(selectedRow, 0).toString());
             String MANV = modelTable.getValueAt(selectedRow, 1).toString();
             String HOTEN = modelTable.getValueAt(selectedRow, 2).toString();
             Date NGAYSINH = (Date) modelTable.getValueAt(selectedRow, 3);
@@ -369,6 +336,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
 
             NhanVien nv = new NhanVien();
             
+            nv.setId(ID);
             nv.setMANV(MANV);
             nv.setHOTEN(HOTEN);
             nv.setNGAYSINH(NGAYSINH);
@@ -390,6 +358,7 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
         if (luaChon == JOptionPane.YES_OPTION) {
             NhanVien nv = showInfoChoosing();
             if (nv != null) {
+                System.out.println(nv.getMANV());
                 if (dsnv.xoaNhanVien(nv.getMANV())) {
                     model_table.removeRow(i_row);
                 }
@@ -514,13 +483,23 @@ public class QLyNhanVienGUI extends JFrame implements TableInterface {
         return dsnv.getNhanVienByMaNV(maNhanVien);
     }
 
-    public static void main(String agru[]) {
-        try {// giao diện
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            QLyNhanVienGUI nv = new QLyNhanVienGUI();
+    public static void main(String args[]) {
+
+        try {
+        	for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new QLyNhanVienGUI().setVisible(true);
+            }
+        });
 
     }
 

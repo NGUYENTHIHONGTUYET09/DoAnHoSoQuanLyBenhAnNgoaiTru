@@ -203,7 +203,7 @@ public class Them_Sua_BenhNhan extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 addBenhNhanVaoTable();
 
-          //      switchToAddPatientGUI();
+                switchToAddPatientGUI();
             }
         });
 
@@ -293,7 +293,7 @@ public class Them_Sua_BenhNhan extends JFrame {
             qlttbn.insertIntoTable(newBN, tinh);
             qlttbn.fillData(); // Sau khi thêm thì gọi fetch data lại
             JOptionPane.showMessageDialog(this, "Thêm bệnh nhân thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Chỉ đóng cửa sổ nếu thêm thành công
+         //   dispose(); // Chỉ đóng cửa sổ nếu thêm thành công
         } else {
             JOptionPane.showMessageDialog(this, "Bệnh nhân đã tồn tại!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }

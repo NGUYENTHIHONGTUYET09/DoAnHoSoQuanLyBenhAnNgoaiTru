@@ -1,6 +1,7 @@
 ﻿CREATE DATABASE QuanLyThongTinBenhAn
 go
 
+select * from NHANVIEN
 
 -- Sài Id cho việc tác động lên DB
 -- Sài Mã bệnh nhân cho việc xuất lên UI
@@ -230,6 +231,7 @@ VALUES
     (N'Lê Văn C', '0965432109', '1995-03-25', N'93 Bình Tây', N'Nam', 1, NULL),
 	(N'Tường Vi', '0764003108', '2004-02-21', N'93 Bình Tây', N'Nữ', 3, NULL);
 
+	select * from taikhoan
 
 INSERT INTO NhanVien (HOTEN, NGAYSINH, DIACHI, GIOITINH, NGAYVL, VAITRO,TRANGTHAI)
 VALUES
@@ -305,8 +307,6 @@ VALUES
     (2, 3,400000,3),
 	(3, 4,400000,4);
 
-	select * from nhanvien
-	select * from taikhoan
 
 		INSERT INTO BIENLAI (MANV_TT, MATOA, TONGTIENKHAM)
 VALUES
@@ -343,16 +343,12 @@ VALUES
 	(13, 4,10,N'Chiều 1 viên');
 
 
-	select * from taikhoan
 
-	update thuoc set soluongton = 50 
-
-		update thuoc set trangthai = N'Còn thuốc' 
 		
 		
 	/***************************************TRIGGER****************************************/
 
-	drop TRIGGER trg_XoaNhanVien
+
 CREATE TRIGGER trg_XoaNhanVien
 ON NHANVIEN
 INSTEAD OF DELETE
@@ -387,10 +383,8 @@ BEGIN
 END;
 GO
 
-select * from nhanvien
-delete nhanvien where id = 8
 
-drop TRIGGER trg_XoaThuoc
+
 CREATE TRIGGER trg_XoaThuoc
 ON THUOC
 INSTEAD OF DELETE
@@ -427,8 +421,6 @@ END;
 GO
 
 
-select * from thuoc
-delete from thuoc where id = 16
 
 CREATE TRIGGER trg_UpdateTrangThaiOnInsertOrUpdate
 ON THUOC
@@ -525,7 +517,7 @@ select * from thuoc
 -- Xóa trigger nếu đã tồn tại
 IF OBJECT_ID ('trg_UpdateTrangThaiInsteadOfDelete', 'TR') IS NOT NULL
 BEGIN
-    DROP TRIGGER trg_UpdateTrangThaiInsteadOfDelete;
+    DROP TRIGGER trg_UpdateSoLuongTonInsteadOfDelete;
 END;
 GO
 
@@ -555,7 +547,7 @@ END;
 GO
 
 
-select * from taikhoan
+
 
 	--tính tổng tiền thuốc của một toa thuốc.
 	
@@ -605,7 +597,8 @@ BEGIN
     WHERE MATOA IN (SELECT MATOA FROM inserted);
 END;
 GO
-
+----------------------************************-----------------------
+select * from taikhoan
 
 --3. Vaitro trong nhân viên chỉ nhận 5 giá trị 
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_VAITRO CHECK (VAITRO IN (N'Bác Sĩ', N'NV Thanh Toán', N'NV Tiếp Nhận',N'Admin',N'Quản lý kho'));
@@ -897,7 +890,7 @@ BEGIN
 END;
 go
 
-
+select * from TaiKhoan
 --NGAY LAP TOA THUOC > HSD CỦA THUỐC 
 CREATE OR ALTER TRIGGER TRG_HANSD_THUOC
 ON CTDONTHUOC

@@ -139,28 +139,26 @@ public class BenhNhanDAO {
         ResultSet rs = null;
         try {
             con = connect.getConnection();
-            String sql = "UPDATE BenhNhan SET tenBN=?, sdt=?, ngaySinh=?, diaChi=?, gioiTinh=?, queQuan=?, ghichu=? WHERE sdt=?";
+            String sql = "UPDATE BenhNhan SET tenBN=?, sdt=?, ngaySinh=?, diaChi=?, gioiTinh=?, queQuan=?, ghichu=? WHERE maBN=?";
             ps = con.prepareStatement(sql);
             ps.setString(1, bn.getTenBN());
             ps.setString(2, bn.getSdt());
             ps.setDate(3, new java.sql.Date(bn.getNgaySinh().getTime()));
             ps.setString(4, bn.getDiaChi());
             ps.setString(5, bn.getGioiTinh());
-            ps.setInt(6, bn.getQueQuan()); // Lưu ID của tỉnh
+            ps.setInt(6, bn.getQueQuan());
             ps.setString(7, bn.getGhiChu());
-            ps.setString(8, bn.getSdt()); // Thiết lập giá trị cho tham số WHERE
+            ps.setString(8, bn.getMaBN());
 
             result = ps.executeUpdate();
 
-            System.out.println("Bạn đã thực thi: " + sql);
-            System.out.println("Có : " + result + " bản ghi đã thay đổi");
+            System.out.println("Executed: " + sql);
+            System.out.println(result + " record(s) updated");
 
-            // Nếu update thành công, lấy lại thông tin bệnh nhân từ database
             if (result > 0) {
-                // Thực hiện truy vấn để lấy lại thông tin bệnh nhân đã cập nhật
-                String selectSql = "SELECT * FROM BenhNhan WHERE sdt=?";
+                String selectSql = "SELECT * FROM BenhNhan WHERE maBN=?";
                 PreparedStatement selectPs = con.prepareStatement(selectSql);
-                selectPs.setString(1, bn.getSdt());
+                selectPs.setString(1, bn.getMaBN());
                 rs = selectPs.executeQuery();
                 if (rs.next()) {
                     bn.setId(rs.getInt("id"));
@@ -171,21 +169,16 @@ public class BenhNhanDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         return result;
     }
+
 
     public BenhNhan getByMaSoBN(String maBN) {
 
@@ -332,4 +325,45 @@ public class BenhNhanDAO {
     return bn;
 }
 
+  
+  public BenhNhan timBNbySDT(String sdt)
+  {
+      try {
+          Connection con = connect.getConnection();
+          String sql = "SELECT * FROM BenhNhan WHERE sdt = ?";
+          
+          PreparedStatement ps = con.prepareStatement(sql);
+          ps.setString(1, sdt);
+          ResultSet rs = ps.executeQuery();
+          while (rs.next()) {
+              BenhNhan benhNhan = new BenhNhan();
+           
+             
+              String queQuanName = rs.getString("queQuan");
+
+              Tinh queQuanTinh = tinhdao.getTinhByName(queQuanName);
+              if (queQuanTinh != null) {
+            	  benhNhan.setQueQuan(queQuanTinh.getId());
+              } else {
+            	  benhNhan.setQueQuan(-1); // Giá trị mặc định nếu không tìm thấy Tinh
+              }
+
+              
+              benhNhan.setId(rs.getInt("id"));
+              benhNhan.setMaBN(rs.getString("maBN"));
+              benhNhan.setTenBN(rs.getString("tenBN"));
+              benhNhan.setSdt(rs.getString("sdt"));
+              benhNhan.setNgaySinh(rs.getDate("ngaySinh"));
+              benhNhan.setDiaChi(rs.getString("diaChi"));
+              benhNhan.setGioiTinh(rs.getString("gioiTinh"));               
+              
+              benhNhan.setGhiChu(rs.getString("ghichu"));
+              
+              return benhNhan;
+          }
+      } catch (SQLException e) {
+          // Handle or log the exception as needed           
+      }
+      return null;
+  }
 }

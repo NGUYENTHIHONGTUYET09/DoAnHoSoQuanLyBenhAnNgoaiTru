@@ -87,4 +87,10 @@ public class Thuoc {
     public void setSoLuongTon(int soLuongTon) {
         this.soLuongTon = soLuongTon;
     }
+
+	@Override
+	public String toString() {
+		return "Thuoc [id=" + id + ", tenThuoc=" + tenThuoc + ", nuocSX=" + nuocSX + ", donGia=" + donGia + ", hsd="
+				+ hsd + ", soLuongTon=" + soLuongTon + ", trangThai=" + trangThai + "]";
+	}
 }

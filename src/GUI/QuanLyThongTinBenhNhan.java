@@ -23,6 +23,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -128,7 +129,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
     public void init() {
         setTitle("Quản lý thông tin bệnh nhân");
 
-        this.setSize(800, 400);
+        this.setSize(900, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -178,10 +179,10 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
             }
         });
         jbutton_timkiem = new JButton("Tìm Kiếm theo số điện thoại");
-        jbutton_timkiem.setBackground(Color.WHITE);
+       // jbutton_timkiem.setBackground(Color.WHITE);
 
         JButton jbutton_quaylai = new JButton("Làm mới");
-        jbutton_quaylai.setBackground(Color.WHITE);
+    //    jbutton_quaylai.setBackground(Color.WHITE);
         jbutton_quaylai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,7 +199,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
             jComboBox_QueQuan.addItem(tinh.getTenTinh());
         }
         JButton jbutton_look = new JButton();
-        jbutton_look.setBackground(Color.WHITE);
+      //  jbutton_look.setBackground(Color.WHITE);
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/ICon/iconFilter.png")); // Thay đổi đường dẫn thành
 
@@ -218,7 +219,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         leftPanel.add(jbutton_look);
 
         JButton jbutton_trangchu = new JButton("Trang chủ");
-        jbutton_trangchu.setBackground(Color.WHITE);
+     //   jbutton_trangchu.setBackground(Color.WHITE);
         ImageIcon iconTrangchu = new ImageIcon(getClass().getResource("/ICon/iconTrangchu.png"));
         jbutton_trangchu.setIcon(iconTrangchu);
         jbutton_trangchu.addActionListener(new ActionListener() {
@@ -297,7 +298,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
             @Override
             public void mouseExited(MouseEvent e) {
                 jitem_savefile.setForeground(UIManager.getColor("Menu.foreground")); // Khôi phục màu chữ khi chuột rời
-                // đi
+       
             }
         });
 
@@ -349,7 +350,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         jmenu.addSeparator();
         jmenu.add(jitem_xuatds);
         jmenu.addSeparator();
-        jmenu.add(jitem_thonngke);
+       // jmenu.add(jitem_thonngke);
 
         jmenubar.add(jmenu);
 
@@ -375,7 +376,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         jscrollpane_table.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         jbutton_them = new JButton("Thêm");
-        jbutton_them.setBackground(Color.WHITE);
+     //   jbutton_them.setBackground(Color.WHITE);
         jbutton_them.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -384,7 +385,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         });
 
         jbutton_xoa = new JButton("Xóa");
-        jbutton_xoa.setBackground(Color.WHITE);
+      //  jbutton_xoa.setBackground(Color.WHITE);
         jbutton_xoa.addActionListener(new ActionListener() {
 
             @Override
@@ -394,7 +395,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         });
 
         jbutton_sua = new JButton("Sửa");
-        jbutton_sua.setBackground(Color.WHITE);
+      //  jbutton_sua.setBackground(Color.WHITE);
         jbutton_sua.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -403,7 +404,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         });
 
         jbutton_thoat = new JButton("Thoát");
-        jbutton_thoat.setBackground(Color.WHITE);
+      //  jbutton_thoat.setBackground(Color.WHITE);
         jbutton_thoat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -433,16 +434,17 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         }
     }
 
-    public void inserOrUpdatetData(BenhNhan bn) {
+    public void insertOrUpdateData(BenhNhan bn) {
         if (!dsbn.checkNotExists(bn)) {
             Tinh tinh = tinhdao.getTinhById(bn.getQueQuan());
             insertIntoTable(bn, tinh);
         } else {
+            System.out.println("Updating patient with maBN: " + bn.getMaBN());
             dsbn.updateBenhNhan(bn);
             updateTableRow(bn);
         }
-
     }
+
 
     public void insertIntoTable(BenhNhan bn, Tinh tinh) {
         DefaultTableModel modelTable = (DefaultTableModel) jtable_table.getModel();
@@ -462,7 +464,9 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
                 modelTable.setValueAt(bn.getNgaySinh(), i, 4);
                 modelTable.setValueAt(bn.getDiaChi(), i, 5);
                 Tinh tinh = tinhdao.getTinhById(bn.getQueQuan());
-                modelTable.setValueAt(tinh.getTenTinh(), i, 6);
+                if (tinh != null) {
+                    modelTable.setValueAt(tinh.getTenTinh(), i, 6);
+                }
                 modelTable.setValueAt(bn.getGioiTinh(), i, 7);
                 modelTable.setValueAt(bn.getGhiChu(), i, 8);
                 break;
@@ -470,12 +474,13 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         }
     }
 
+
     public BenhNhan showInfoChoosing() {
         DefaultTableModel modelTable = (DefaultTableModel) jtable_table.getModel();
         int selectedRow = jtable_table.getSelectedRow();
 
         if (selectedRow != -1 && selectedRow < modelTable.getRowCount()) {
-            int id = (int) modelTable.getValueAt(selectedRow, 0); // Chuyển đổi kiểu dữ liệu của id từ String sang int
+            int id = (int) modelTable.getValueAt(selectedRow, 0);
             String mabn = modelTable.getValueAt(selectedRow, 1).toString();
             String tenbn = modelTable.getValueAt(selectedRow, 2).toString();
             String sdt = modelTable.getValueAt(selectedRow, 3).toString();
@@ -483,11 +488,11 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
             String diachi = modelTable.getValueAt(selectedRow, 5).toString();
             String tenTinh = modelTable.getValueAt(selectedRow, 6).toString();
             String gioitinh = modelTable.getValueAt(selectedRow, 7).toString();
-            String ghichu = modelTable.getValueAt(selectedRow, 8) != null
-                    ? modelTable.getValueAt(selectedRow, 8).toString()
-                    : "";
+            String ghichu = modelTable.getValueAt(selectedRow, 8) != null ? modelTable.getValueAt(selectedRow, 8).toString() : "";
 
             BenhNhan bn = new BenhNhan();
+            bn.setId(id);
+            bn.setMaBN(mabn);
             bn.setTenBN(tenbn);
             bn.setSdt(sdt);
             bn.setNgaySinh(ngaysinh);
@@ -508,6 +513,7 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
             return null;
         }
     }
+
 
     public void deleteBenhNhan() {
         DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
@@ -592,14 +598,26 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
     }
 
     @Override
+//    public void resetTable() {
+//        DefaultTableModel modelTable = (DefaultTableModel) jtable_table.getModel();
+//        modelTable.setRowCount(0);
+//        for (BenhNhan bn : dsbn.getDsbn()) {
+//            Tinh tinh = tinhdao.getTinhById(bn.getQueQuan());
+//            insertIntoTable(bn, tinh);
+//        }
+//    }
+    
     public void resetTable() {
         DefaultTableModel modelTable = (DefaultTableModel) jtable_table.getModel();
-        modelTable.setRowCount(0);
-        for (BenhNhan bn : dsbn.getDsbn()) {
+        modelTable.setRowCount(0);  // Clear the table
+
+        List<BenhNhan> allBenhNhan = dsbn.getDSFromDB();  // Fetch all records from the database
+        for (BenhNhan bn : allBenhNhan) {
             Tinh tinh = tinhdao.getTinhById(bn.getQueQuan());
             insertIntoTable(bn, tinh);
         }
     }
+
 
     public void exitFrame() {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thoát?", "Xác nhận thoát",
@@ -722,9 +740,24 @@ public class QuanLyThongTinBenhNhan extends JFrame implements interfaces.TableIn
         return dsbn.getBenhNhanByMaBN(maBenhNhan);
     }
 
-    public static void main(String agru[]) {
+    
+    public static void main(String args[]) {
 
-        new QuanLyThongTinBenhNhan();
+        try {
+        	for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            	  new QuanLyThongTinBenhNhan().setVisible(true);
+            }
+        });
 
     }
 

@@ -5,6 +5,8 @@
 package GUI;
 
 import DTO.BienLaiDTO;
+
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
@@ -27,7 +29,6 @@ public class ChiTietBienLaiGUI extends javax.swing.JFrame {
         });
     }
     
-    
     public void ShowBienLaiInfo(BienLaiDTO bl) {
         lblid.setText(Integer.toString(bl.getId()));
         lblmabl.setText(bl.getMaBL());
@@ -39,7 +40,6 @@ public class ChiTietBienLaiGUI extends javax.swing.JFrame {
         lbltongtien.setText(Double.toString(bl.getTongTienKham()));
         this.setVisible(true);
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,6 +61,8 @@ public class ChiTietBienLaiGUI extends javax.swing.JFrame {
         lbltongtien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(Color.WHITE); // Set background color to white
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 17)); // NOI18N
         jLabel1.setText("ID:");
@@ -171,6 +173,8 @@ public class ChiTietBienLaiGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        getContentPane().setBackground(Color.WHITE); // Set background color of content pane to white
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

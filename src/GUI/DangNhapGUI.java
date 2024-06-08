@@ -56,7 +56,7 @@ public class DangNhapGUI extends JFrame implements ActionListener {
 
     public void init() {
         this.setTitle("Đăng nhập");
-        this.setSize(550, 450);
+        this.setSize(600, 450);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -180,16 +180,16 @@ public class DangNhapGUI extends JFrame implements ActionListener {
         jpanel_bottom.add(jpanel_radiobutton, BorderLayout.CENTER);
         jpanel_bottom.add(jpanel_button, BorderLayout.SOUTH);
 
-        // Tạo một JPanel để chứa hình ảnh và lớp nền bóng
+      
         JPanel imagePanel = new JPanel() {
-            @Override
+         
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Vẽ hình ảnh
+           
                 ImageIcon icon_1 = new ImageIcon(getClass().getResource("/ICon/iconBenhVien.png"));
                 Image img = icon_1.getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-                // Vẽ lớp nền bóng
+             
                 g.setColor(new Color(255, 255, 255, 50));
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
@@ -202,22 +202,13 @@ public class DangNhapGUI extends JFrame implements ActionListener {
         jPanel_thongtin.add(jpanel_header, BorderLayout.NORTH);
         jPanel_thongtin.add(jpanel_bottom, BorderLayout.SOUTH);
 
-        // Thêm jPanel_thongtin lên trên imagePanel
+      
         imagePanel.add(jPanel_thongtin, BorderLayout.CENTER);
 
-        // Thêm imagePanel vào JFrame
+       
         getContentPane().add(imagePanel, BorderLayout.CENTER);
     }
 
-//    public boolean kiemTraTaiKhoan(String taiKhoan, String matKhau, String vaiTro) {
-//        for (TaiKhoan tk : dsdk.getDSFromDB()) {
-//            System.out.print(tk);
-//            if (tk.getEmail().equals(taiKhoan) && tk.getMatKhau().equals(matKhau) && tk.getVaiTro().equals(vaiTro)) {
-//                return true;
-//            }
-//        }
-//        return false; // Trả về false nếu không có tài khoản nào khớp
-//    }
 
     public boolean kiemTraTaiKhoan(String taiKhoan, String matKhau, String vaiTro) {
         for (TaiKhoan tk : dsdk.getDSFromDB()) {
@@ -290,7 +281,7 @@ public class DangNhapGUI extends JFrame implements ActionListener {
             if (jradio_DangKy.isSelected()) {
                 DangKyGUI dkg = new DangKyGUI(this, true, null);
                 dkg.setVisible(true);
-                dispose();
+          //      dispose();
             }
         }
         if (ae.getSource() == jbutton_huy) {

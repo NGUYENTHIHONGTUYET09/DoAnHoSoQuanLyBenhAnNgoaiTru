@@ -26,7 +26,7 @@ public class TaiKhoanDAO {
 
     private static TaiKhoanDAO instance = new TaiKhoanDAO();
     
-    private TaiKhoanDAO(){}
+    public TaiKhoanDAO(){}
     
     public static TaiKhoanDAO getInstance(){
         return instance;

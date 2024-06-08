@@ -94,7 +94,7 @@ public class TrangChuAdmin extends JFrame implements ActionListener {
         });
 
         JButton jbutton_thongkedoanhthu = new JButton(
-                "<html><center>" + "Thống kê " + "<br>" + "doanh thu năm" + "</center></html>");
+                "<html><center>" + "Thống kê " + "<br>" + "doanh thu các năm" + "</center></html>");
         ImageIcon iconthongke1 = new ImageIcon(getClass().getResource("/ICon/iconChart1.png"));
         jbutton_thongkedoanhthu.setIcon(iconthongke1);
         jbutton_thongkedoanhthu.setFont(font);
@@ -113,7 +113,7 @@ public class TrangChuAdmin extends JFrame implements ActionListener {
         });
 
         JButton jbutton_thongkedoanhthuthang = new JButton(
-                "<html><center>" + "Thống kê " + "<br>" + "doanh thu tháng" + "</center></html>");
+                "<html><center>" + "Thống kê " + "<br>" + "doanh thu theo năm" + "</center></html>");
         jbutton_thongkedoanhthuthang.setIcon(iconthongke1);
         jbutton_thongkedoanhthuthang.setFont(font);
         jbutton_thongkedoanhthuthang.addActionListener(new ActionListener() {

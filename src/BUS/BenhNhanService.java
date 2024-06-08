@@ -28,4 +28,9 @@ public class BenhNhanService {
     public ArrayList <BenhNhan> getAllBenhNhans(){
         return benhNhanDAO.fetchAllBenhNhan();
     }
+    
+    public BenhNhan getBenhNhanBySDT(String sdt)
+    {
+        return benhNhanDAO.timBNbySDT(sdt);
+    }
 }

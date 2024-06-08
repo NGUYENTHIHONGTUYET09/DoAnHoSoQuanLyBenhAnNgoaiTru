@@ -8,5 +8,4 @@ import DTO.Thuoc;
 public interface AddListThuocInterface {
 
 	void addListThuoc(List<CTDonThuoc> listThuoc);
-	
 }

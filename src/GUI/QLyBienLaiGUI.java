@@ -169,10 +169,10 @@ public class QLyBienLaiGUI extends JFrame {
 			}
 		});
 		jbutton_timkiem = new JButton("Tìm kiếm theo mã biên lai");
-		jbutton_timkiem.setBackground(Color.WHITE);
+		//jbutton_timkiem.setBackground(Color.WHITE);
 
 		JButton jbutton_quaylai = new JButton("Hiển thị tất cả");
-		jbutton_quaylai.setBackground(Color.WHITE);
+		//jbutton_quaylai.setBackground(Color.WHITE);
 		jbutton_quaylai.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -185,7 +185,7 @@ public class QLyBienLaiGUI extends JFrame {
 		leftPanel.add(jbutton_timkiem);
 		leftPanel.add(jbutton_quaylai);
 		JButton jbutton_trangchu = new JButton("Đăng xuất");
-		jbutton_trangchu.setBackground(Color.WHITE);
+	//	jbutton_trangchu.setBackground(Color.WHITE);
 		ImageIcon iconTrangchu = new ImageIcon(getClass().getResource("/ICon/iconTrangchu.png"));
 		jbutton_trangchu.setIcon(iconTrangchu);
 		jbutton_trangchu.addActionListener(new ActionListener() {
@@ -276,7 +276,7 @@ public class QLyBienLaiGUI extends JFrame {
 		jscrollpane_table.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		jbutton_them = new JButton("Thêm");
-		jbutton_them.setBackground(Color.WHITE);
+	//	jbutton_them.setBackground(Color.WHITE);
 		jbutton_them.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -285,7 +285,7 @@ public class QLyBienLaiGUI extends JFrame {
 		});
 
 		jbutton_xoa = new JButton("Xóa");
-		jbutton_xoa.setBackground(Color.WHITE);
+		//jbutton_xoa.setBackground(Color.WHITE);
 		jbutton_xoa.addActionListener(new ActionListener() {
 
 			@Override
@@ -295,7 +295,7 @@ public class QLyBienLaiGUI extends JFrame {
 		});
 
 		jbutton_thoat = new JButton("Thoát");
-		jbutton_thoat.setBackground(Color.WHITE);
+	//	jbutton_thoat.setBackground(Color.WHITE);
 		jbutton_thoat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

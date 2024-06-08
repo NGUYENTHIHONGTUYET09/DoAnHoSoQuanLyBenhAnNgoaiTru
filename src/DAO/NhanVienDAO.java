@@ -15,11 +15,11 @@ public class NhanVienDAO {
 		    try {
 		        PreparedStatement preStmt = conn.prepareStatement(sql);
 		        ResultSet rs = preStmt.executeQuery();
-		        while (rs.next()) {
+		        while (rs.next()) { 
 		            listNV.add(new NhanVien(
 		                rs.getInt("ID"),
 		                rs.getString("MANV"),
-		                rs.getString("HOTEN"),
+		                rs.getString("HOTEN"), 
 		                rs.getDate("NGAYSINH"),
 		                rs.getString("DIACHI"),
 		                rs.getString("GIOITINH"),
@@ -85,7 +85,7 @@ public class NhanVienDAO {
                 + " WHERE MANV = ?";
         try {
             PreparedStatement preStmt = conn.prepareStatement(sql);
-            preStmt.setString(7, nv.getMANV());
+          
             preStmt.setString(1, nv.getHOTEN());
             preStmt.setDate(2, nv.getNGAYSINH());
             preStmt.setString(3, nv.getDIACHI());
@@ -93,6 +93,7 @@ public class NhanVienDAO {
             preStmt.setDate(5, nv.getNGAYVL());
             preStmt.setString(6, nv.getVAITRO());
             preStmt.setString(7, nv.getTRANGTHAI());
+            preStmt.setString(8, nv.getMANV());
             if (preStmt.executeUpdate() > 0)
                 return true;
             else

@@ -73,7 +73,7 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
         this.setLocationRelativeTo(null);
 
         JPanel jpanel_header = new JPanel();
-
+ 
         jpanel_header.setLayout(new BorderLayout());
 
         JLabel jLabel_dsdk = new JLabel("Danh sách tài khoản", SwingConstants.CENTER);
@@ -338,7 +338,7 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
             String trangthai = modelTable.getValueAt(selectedRow, 7).toString();
 
 
-            // Cần xử lý: Mã bệnh nhân vs mã nhân viên
+         
             TaiKhoan newDK = new TaiKhoan();
 
             NhanVien nv = null;
@@ -362,51 +362,22 @@ public class DanhSachTaiKhoan extends JFrame implements TableInterface {
         }
     }
 
-//    public void deleteDangKy() {
-//        DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
-//        int i_row = jtable_table.getSelectedRow();
-//        int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa dòng đã chọn?");
-//        if (luaChon == JOptionPane.YES_OPTION) {
-//            TaiKhoan dk = showInfoChoosing();
-//            if (dk != null) {
-//                dsdkbus.xoaDangKy(String.valueOf(dk.getMaSoNV()));
-//                model_table.removeRow(i_row);
-//            }
-            // Xóa từ bảng thôi
-//        } else {
-//            String maNhanVienInput = dkg.jTextField_maso.getText().trim();
-//            if (!maNhanVienInput.isEmpty()) {
-//                dsdkbus.xoaDangKy(maNhanVienInput);
-//                for (int i = 0; i < model_table.getRowCount(); i++) {
-//                    if (model_table.getValueAt(i, 1).toString().equals(maNhanVienInput)) {
-//                        model_table.removeRow(i);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
+
     
     public void deleteDangKy() {
         DefaultTableModel model_table = (DefaultTableModel) jtable_table.getModel();
         int i_row = jtable_table.getSelectedRow();
         
-        // Ensure a row is selected
         if (i_row == -1) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        // Confirmation dialog
         int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa dòng đã chọn?");
         if (luaChon == JOptionPane.YES_OPTION) {
-            // Retrieve selected row's data
             TaiKhoan dk = showInfoChoosing();
             if (dk != null) {
-                // Attempt to delete the entry from the database
                 if (dsdkbus.xoaDangKy(String.valueOf(dk.getMaSoNV()))) {
-                    // Remove the row from the table model
                     model_table.removeRow(i_row);
                     JOptionPane.showMessageDialog(this, "Deleted successfully.", "Info", JOptionPane.INFORMATION_MESSAGE);
                 } else {

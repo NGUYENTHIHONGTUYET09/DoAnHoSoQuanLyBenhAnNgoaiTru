@@ -5,12 +5,16 @@
 package DAO;
 
 import DTO.Thuoc;
+import DTO.Tinh;
+import DTO.BenhNhan;
 import DTO.CTDonThuoc;
 import DTO.ToaThuoc;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
+
 import connectSql.connect;
 
 import java.sql.PreparedStatement;
@@ -194,7 +198,55 @@ public class ThuocDAO {
         }
     }
 
-    // Phần còn lại của lớp bạn
+//    public Thuoc timThuocByTen(String ten) {
+//        Thuoc thuoc = null;
+//        try {
+//            Connection con = connect.getConnection();
+//            String sql = "SELECT * FROM Thuoc WHERE TENTHUOC = ?";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, ten);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                thuoc = new Thuoc();
+//                thuoc.setId(rs.getInt("id"));
+//                thuoc.setTenThuoc(rs.getString("TENTHUOC"));
+//                thuoc.setNuocSX(rs.getString("NUOCSX"));
+//                thuoc.setDonGia(rs.getDouble("DONGIA"));
+//                thuoc.setHsd(rs.getDate("HSD"));
+//                thuoc.setSoLuongTon(rs.getInt("SOLUONGTON"));
+//                thuoc.setTrangThai(rs.getString("TRANGTHAI"));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace(); // Ghi log lỗi hoặc xử lý lỗi
+//        }
+//        return thuoc;
+//    }
+//    
+    public List<Thuoc> timThuocByTenContain(String ten) {
+        List<Thuoc> danhSachThuoc = new ArrayList<>();
+        try {
+            Connection con = connect.getConnection();
+            String sql = "SELECT * FROM Thuoc WHERE TENTHUOC LIKE ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + ten + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Thuoc thuoc = new Thuoc();
+                thuoc.setId(rs.getInt("id"));
+                thuoc.setTenThuoc(rs.getString("TENTHUOC"));
+                thuoc.setNuocSX(rs.getString("NUOCSX"));
+                thuoc.setDonGia(rs.getDouble("DONGIA"));
+                thuoc.setHsd(rs.getDate("HSD"));
+                thuoc.setSoLuongTon(rs.getInt("SOLUONGTON"));
+                thuoc.setTrangThai(rs.getString("TRANGTHAI"));
+                danhSachThuoc.add(thuoc);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return danhSachThuoc;
+    }
 }
 
 

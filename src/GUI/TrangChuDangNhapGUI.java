@@ -6,7 +6,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
+import javax.imageio.ImageIO;
 
 public class TrangChuDangNhapGUI extends JFrame {
 
@@ -38,11 +41,33 @@ public class TrangChuDangNhapGUI extends JFrame {
         Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);
         this.setIconImage(img);
         imagePanel.setLayout(new BorderLayout());
-
+        
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setOpaque(false);
+        
         JLabel jLabel_trangchu = new JLabel("Login", SwingConstants.CENTER);
         jLabel_trangchu.setForeground(Color.WHITE);
         jLabel_trangchu.setFont(new Font("Arial", Font.BOLD, 24));
-        imagePanel.add(jLabel_trangchu, BorderLayout.NORTH);
+        topPanel.add(jLabel_trangchu, BorderLayout.CENTER);
+        
+        JButton iconButton = new JButton(new ImageIcon(getClass().getResource("/ICon/iconDinhVi.png")));
+        iconButton.setContentAreaFilled(false); 
+        iconButton.setBorderPainted(false); 
+        topPanel.add(iconButton, BorderLayout.EAST);
+        iconButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try { 
+                    Desktop.getDesktop().browse(new URL("https://maps.app.goo.gl/V4G2iXtFX9KJpz4A6").toURI()); 
+                } catch (Exception x) {
+                    x.printStackTrace(); 
+                }
+                
+            }
+        });
+        
+      
+        imagePanel.add(topPanel, BorderLayout.NORTH);
 
         JButton jButton_xemthongtin = new JButton("Đăng nhập");
         jButton_xemthongtin.setBackground(new Color(200, 200, 200, 10));
@@ -51,6 +76,7 @@ public class TrangChuDangNhapGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchToDangNhapGUI();
+                
             }
         });
 
@@ -79,11 +105,20 @@ public class TrangChuDangNhapGUI extends JFrame {
     public static void main(String args[]) {
 
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            TrangChuDangNhapGUI dn = new TrangChuDangNhapGUI();
+        	for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TrangChuDangNhapGUI().setVisible(true);
+            }
+        });
 
     }
 }

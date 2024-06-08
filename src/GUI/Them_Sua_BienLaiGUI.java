@@ -118,7 +118,7 @@ public class Them_Sua_BienLaiGUI extends JFrame {
 
 		jbutton_them = new JButton("Thêm");
 		jbutton_them.setFont(font_2);
-		jbutton_them.setBackground(Color.WHITE);
+	//	jbutton_them.setBackground(Color.WHITE);
 
 		JPanel jpanel_bottom = new JPanel();
 		jpanel_bottom.setLayout(new GridLayout(1, 2));

@@ -5,6 +5,7 @@
 package BUS;
 
 import DAO.ThuocDAO;
+import DTO.BenhNhan;
 import DTO.Thuoc;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,14 +60,10 @@ public class ThuocService {
         thuocDAO.suaThuoc1(thuoc);
     }
     
-    public ArrayList<Thuoc> getThuocsByTenThuocs1(String tenThuoc) {
-        ArrayList<Thuoc> result = new ArrayList<>();
-        for (Thuoc thuoc : thuocs) {
-            if (thuoc.getTenThuoc().toLowerCase().contains(tenThuoc.toLowerCase())) {
-                result.add(thuoc);
-            }
-        }
-        return result;
+    public <List>Thuoc getThuocByTen(String tenthuoc)
+    {
+        return (Thuoc) thuocDAO.timThuocByTenContain(tenthuoc);
     }
+   
    
 }

@@ -3,8 +3,12 @@ package custom;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -19,29 +23,36 @@ import javax.swing.UIManager;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
+import DTO.CTDonThuoc;
 import DTO.Thuoc;
+import interfaces.AddListThuocInterface;
+import interfaces.NewTableInterface;
 
-public class ComboBoxFilterDecorator<T> {
-    private JComboBox<T> comboBox;
-    private BiPredicate<T, String> userFilter;
-    private Function<T, String> comboDisplayTextMapper;
-    java.util.List<T> originalItems;
-    private Object selectedItem;
+public class ComboBoxFilterDecorator<Thuoc> {
+    private JComboBox<Thuoc> comboBox;
+    private BiPredicate<Thuoc, String> userFilter;
+    private Function<Thuoc, String> comboDisplayTextMapper;
+    java.util.List<Thuoc> originalItems;
+    private Thuoc selectedItem;
     private FilterEditor filterEditor;
+    private NewTableInterface listThuocInterface;
 
-    public ComboBoxFilterDecorator(JComboBox<T> comboBox,
-                                   BiPredicate<T, String> userFilter,
-                                   Function<T, String> comboDisplayTextMapper) {
+    public ComboBoxFilterDecorator(JComboBox<Thuoc> comboBox,
+                                   BiPredicate<Thuoc, String> userFilter,
+                                   Function<Thuoc, String> comboDisplayTextMapper,
+                                   NewTableInterface listThuocInterface) {
         this.comboBox = comboBox;
         this.userFilter = userFilter;
         this.comboDisplayTextMapper = comboDisplayTextMapper;
+        this.listThuocInterface = listThuocInterface;
     }
 
     public static <T> ComboBoxFilterDecorator<T> decorate(JComboBox<T> comboBox,
                                                           Function<T, String> comboDisplayTextMapper,
-                                                          BiPredicate<T, String> userFilter) {
+                                                          BiPredicate<T, String> userFilter,
+                                                          NewTableInterface listThuocInterface) {
         ComboBoxFilterDecorator decorator =
-                new ComboBoxFilterDecorator(comboBox, userFilter, comboDisplayTextMapper);
+                new ComboBoxFilterDecorator(comboBox, userFilter, comboDisplayTextMapper,listThuocInterface);
         decorator.init();
         return decorator;
     }
@@ -53,7 +64,7 @@ public class ComboBoxFilterDecorator<T> {
     }
 
     private void prepareComboFiltering() {
-        DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) comboBox.getModel();
+        DefaultComboBoxModel<Thuoc> model = (DefaultComboBoxModel<Thuoc>) comboBox.getModel();
         this.originalItems = new ArrayList<>();
         for (int i = 0; i < model.getSize(); i++) {
             this.originalItems.add(model.getElementAt(i));
@@ -65,7 +76,7 @@ public class ComboBoxFilterDecorator<T> {
             @Override
             public void accept(Boolean aBoolean) {
                 if (aBoolean) {//commit
-                    selectedItem = comboBox.getSelectedItem();
+                    selectedItem = (Thuoc) comboBox.getSelectedItem();
                 } else {//rollback to the last one
                     comboBox.setSelectedItem(selectedItem);
                     filterEditor.setItem(selectedItem);
@@ -100,19 +111,23 @@ public class ComboBoxFilterDecorator<T> {
                             return;
                         }
                         int keyCode = e.getKeyCode();
+                        
                         switch (keyCode) {
                             case KeyEvent.VK_DELETE:
                                 return;
                             case KeyEvent.VK_ENTER:
-                                selectedItem = comboBox.getSelectedItem();
+                            	selectedItem = (Thuoc) comboBox.getSelectedItem();
                                 resetFilterComponent();
+                                listThuocInterface.addThuocToCreateDoNThuoc((DTO.Thuoc) selectedItem); //Cho nay ok
                                 return;
                             case KeyEvent.VK_ESCAPE:
                                 resetFilterComponent();
                                 return;
+                            	
                             case KeyEvent.VK_BACK_SPACE:
                                 filterEditor.removeCharAtEnd();
                                 break;
+                            
                             default:
                                 filterEditor.addChar(keyChar);
                         }
@@ -128,7 +143,8 @@ public class ComboBoxFilterDecorator<T> {
                     }
                 }
         );
-    }
+        }
+    
 
     public Supplier<String> getFilterTextSupplier() {
         return () -> {
@@ -155,6 +171,12 @@ public class ComboBoxFilterDecorator<T> {
                 resetFilterComponent();
             }
         });
+        
+        comboBox.addActionListener(a -> {
+        	selectedItem = (Thuoc) comboBox.getSelectedItem();
+            resetFilterComponent();
+            listThuocInterface.addThuocToCreateDoNThuoc((DTO.Thuoc) selectedItem); //Cho nay ok
+        });
     }
 
     private void resetFilterComponent() {
@@ -162,20 +184,20 @@ public class ComboBoxFilterDecorator<T> {
             return;
         }
         //restore original order
-        DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) comboBox.getModel();
+        DefaultComboBoxModel<Thuoc> model = (DefaultComboBoxModel<Thuoc>) comboBox.getModel();
         model.removeAllElements();
-        for (T item : originalItems) {
+        for (Thuoc item : originalItems) {
             model.addElement(item);
         }
         filterEditor.reset();
     }
 
     private void applyFilter() {
-        DefaultComboBoxModel<T> model = (DefaultComboBoxModel<T>) comboBox.getModel();
+        DefaultComboBoxModel<Thuoc> model = (DefaultComboBoxModel<Thuoc>) comboBox.getModel();
         model.removeAllElements();
-        java.util.List<T> filteredItems = new ArrayList<>();
+        java.util.List<Thuoc> filteredItems = new ArrayList<>();
         //add matched items at top
-        for (T item : originalItems) {
+        for (Thuoc item : originalItems) {
             if (userFilter.test(item, filterEditor.getFilterLabel().getText())) {
                 model.addElement(item);
             } else {

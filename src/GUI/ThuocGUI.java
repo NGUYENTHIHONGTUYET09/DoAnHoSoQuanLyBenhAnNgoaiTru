@@ -168,7 +168,7 @@ public class ThuocGUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(searchField)
+                            .addComponent(searchField) 
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(trangChuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -266,7 +266,10 @@ public class ThuocGUI extends javax.swing.JFrame {
 
     private void exitBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+       // System.exit(0);
+    	TrangChuDangNhapGUI tcdng = new TrangChuDangNhapGUI();
+    	tcdng.setVisible(true);
+    	dispose();
     }//GEN-LAST:event_exitBtActionPerformed
 
     private void searchBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtActionPerformed
