@@ -12,9 +12,9 @@ public class connect {
         try {
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://ANDREW\\SQLEXPRESS:1433;databaseName=QuanLyThongTinBenhAn;trustServerCertificate=true";
+            String connectionUrl = "jdbc:sqlserver://DESKTOP-D98P3PT\\TUYET:1433;databaseName=QuanLyThongTinBenhAn1;trustServerCertificate=true";
             String username = "sa";
-            String password = "123456";
+            String password = "TUYET";
             c = DriverManager.getConnection(connectionUrl, username, password);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
